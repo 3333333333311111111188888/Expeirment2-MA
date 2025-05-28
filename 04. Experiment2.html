@@ -1,0 +1,3470 @@
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment2</title>
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --primary-light: #6b8cbe;
+            --primary-dark: #385888;
+            --secondary-color: #5dab7f;
+            --secondary-light: #7bc39b;
+            --secondary-dark: #419467;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --warning-color: #e74c3c;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 15px;
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background-color: #fff;
+            box-shadow: var(--box-shadow);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .container > div {
+            min-height: 70vh;
+            position: relative;
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary-dark);
+            text-align: center;
+            width: 100%;
+            margin-top: 0;
+            font-weight: 600;
+        }
+
+        .semantic-task h1,
+        .semantic-task h2 {
+            color: var(--secondary-dark);
+        }
+
+        h1 {
+            margin-bottom: 25px;
+            font-size: 2em;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        h1:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .semantic-task h1:after {
+            background: var(--secondary-color);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 1.6em;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            color: var(--dark-color);
+            min-height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            line-height: 1.6;
+            font-weight: normal;
+        }
+
+        .hidden { display: none !important; }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1.1em;
+            margin: 20px auto 0;
+            display: block;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .semantic-task button {
+            background-color: var(--secondary-color);
+        }
+
+        .semantic-task button:hover {
+            background-color: var(--secondary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* Center content in the experiment sections */
+        .experiment-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            max-width: 750px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .welcome-columns {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 25px;
+            align-items: flex-start;
+            gap: 25px;
+        }
+
+        .welcome-info {
+            flex: 1;
+            padding-left: 20px;
+            border-left: 2px solid #e9ecef;
+        }
+
+        .welcome-info p, .welcome-text p {
+            font-size: 1em;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            height: auto;
+        }
+
+        .welcome-text {
+            flex: 1;
+            padding-right: 25px;
+            display: flex;
+            flex-direction: column;
+            min-height: 230px;
+        }
+
+        .practice-end-container {
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            max-width: 700px;
+            width: 100%;
+            margin: 20px auto;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            border-left: 5px solid var(--primary-color);
+            position: relative;
+        }
+
+        .practice-end-container::before {
+            content: "✓";
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            width: 30px;
+            height: 30px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .semantic-task .practice-end-container {
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        .semantic-task .practice-end-container::before {
+            background: var(--secondary-color);
+        }
+
+        .practice-end-container p {
+            margin: 12px 0;
+            font-size: 1.1em;
+        }
+
+        .practice-end-container p.emphasis {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: var(--primary-dark);
+            margin: 20px 0;
+        }
+
+        .semantic-task .practice-end-container p.emphasis {
+            color: var(--secondary-dark);
+        }
+
+        .fixation-cross {
+            font-size: 60px;
+            text-align: center;
+            color: var(--dark-color);
+            margin: 30px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .audio-icon {
+            font-size: 60px;
+            text-align: center;
+            color: var(--primary-color);
+            margin: 20px 0;
+        }
+
+        .semantic-task .audio-icon {
+            color: var(--secondary-color);
+        }
+
+        .audio-status {
+            font-size: 18px;
+            text-align: center;
+            margin: 20px 0;
+            font-style: italic;
+            color: #555;
+            min-height: 27px;
+        }
+        .stimulus {
+            font-size: 42px;
+            text-align: center;
+            font-weight: 600;
+            margin: 40px 0;
+            color: var(--dark-color);
+            background-color: rgba(255,255,255,0.9);
+            padding: 20px 40px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+        }
+
+        .prompt {
+            font-size: 24px;
+            text-align: center;
+            margin-top: 45px;
+            padding: 15px 25px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: var(--border-radius);
+            display: inline-block;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            min-width: 200px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .semantic-task .prompt {
+            background-color: var(--secondary-color);
+        }
+
+        .keyboard-key {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            font-family: monospace;
+            margin: 0 4px;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.05);
+            font-weight: bold;
+        }
+
+        .instruction-text {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: justify;
+            padding: 25px 30px;
+            border-radius: var(--border-radius);
+            font-weight: normal;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+        }
+
+        .content-box {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto 20px;
+            padding: 25px 30px;
+            background-color: #f9f9f9;
+            border-radius: var(--border-radius);
+        }
+
+        /* Semantic instruction box styles */
+        .semantic-instruction {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #f5f7fa;
+            border-radius: var(--border-radius);
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        .semantic-instruction h3 {
+            color: var(--secondary-dark);
+            margin-top: 0;
+            margin-bottom: 12px;
+            min-height: auto;
+            text-align: left;
+            justify-content: flex-start;
+            font-weight: 600;
+        }
+
+        .semantic-instruction p {
+            font-weight: normal;
+            margin-bottom: 8px;
+        }
+
+        .semantic-instruction ul {
+    text-align: left;
+    margin: 12px 0;
+    padding-left: 30px; 
+    list-style-type: disc; 
+}
+
+.semantic-instruction li {
+    margin-bottom: 8px;
+    text-align: left;
+    font-weight: normal;
+}
+
+
+.semantic-instruction li::before {
+    display: none;
+}
+
+        .lexical-task {
+            border-top: 8px solid var(--primary-color);
+        }
+
+        .semantic-task {
+            border-top: 8px solid var(--secondary-color);
+        }
+
+        .task-indicator {
+            font-size: 18px;
+            text-align: center;
+            padding: 12px;
+            margin-bottom: 25px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            background-color: rgba(0,0,0,0.03);
+            position: relative;
+        }
+
+        .lexical-task .task-indicator {
+            color: var(--primary-dark);
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .semantic-task .task-indicator {
+            color: var(--secondary-dark);
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        /* Form styles */
+        .form-container {
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 25px 30px;
+            border-radius: var(--border-radius);
+            background-color: #f9f9f9;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #dee2e6;
+            border-radius: var(--border-radius);
+            box-sizing: border-box;
+            font-size: 1em;
+            transition: all 0.3s;
+            background-color: #f8f9fa;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
+            background-color: #fff;
+        }
+
+        .optional-fields {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px dashed #dee2e6;
+        }
+
+        /* Styling for word pairs */
+        .word-pair {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            margin: 30px 0;
+        }
+
+        /* Section transitions */
+        .section-transition {
+            text-align: center;
+            padding: 25px;
+        }
+
+        /* List styling for instructions */
+        .instruction-text ul {
+            text-align: left;
+            display: inline-block;
+            margin: 12px 0;
+            padding-left: 20px;
+        }
+
+        .instruction-text li {
+            margin-bottom: 10px;
+            position: relative;
+            text-align: left;
+            padding-left: 10px;
+            font-weight: normal;
+        }
+
+        .instruction-text li::before {
+            content: "•";
+            color: var(--primary-color);
+            font-weight: bold;
+            position: absolute;
+            left: -15px;
+            font-size: 1.2em;
+        }
+
+        .semantic-task .instruction-text li::before {
+            color: var(--secondary-color);
+        }
+
+        /* Language section */
+        .language-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: var(--border-radius);
+        }
+
+        .language-section h2 {
+            color: var(--primary-dark);
+            margin-top: 0;
+            text-align: left;
+        }
+
+        /* Rating scale */
+        .rating-scale {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: var(--border-radius);
+            background-color: #f8f9fa;
+        }
+
+        .slider-container {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .slider-min, .slider-max {
+            font-weight: bold;
+            color: var(--dark-color);
+            display: inline-block;
+            width: 30px;
+            text-align: center;
+        }
+
+        .slider {
+            width: calc(100% - 70px); 
+            height: 8px;
+            margin: 0 10px;
+        }
+
+        .slider-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .detailed-label {
+            margin: 10px 0;
+            padding: 10px 15px;
+            text-align: center;
+            min-height: 40px;
+            background-color: #f0f4f8;
+            border-radius: 5px;
+        }
+
+        .thank-you-container {
+            text-align: center;
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 35px;
+            background-color: #f9f9f9;
+            border-radius: var(--border-radius);
+        }
+
+        .thank-you-container h2 {
+            margin-bottom: 25px;
+            color: var(--primary-dark);
+        }
+
+        .thank-you-container p {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .participant-code {
+            margin: 25px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+
+        .participant-code strong {
+            font-size: 1.5em;
+            color: var(--primary-dark);
+            letter-spacing: 2px;
+        }
+
+        .transition-timer {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        #countdown {
+            font-weight: bold;
+            color: var(--warning-color);
+            font-size: 28px;
+            display: inline-block;
+            min-width: 40px;
+        }
+
+
+        .required::after {
+            content: " *";
+            color: #e74c3c;
+        }
+
+        .lived-in-note {
+            font-size: 0.9em;
+            color: #777;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+
+        .key-instruction {
+            margin: 20px 0;
+            font-weight: 500;
+            text-align: justify;
+        }
+
+        .key-instruction p {
+            text-align: justify;
+            margin: 10px 0;
+        }
+
+
+        .next-stimulus-hint {
+            font-size: 16px;
+            color: #777;
+            text-align: center;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        /* Uncertainty note */
+        .uncertainty-note {
+            font-weight: bold;
+            text-align: justify;
+            margin: 15px 0;
+            padding: 12px 15px;
+            background-color: #f9f9f9;
+            border-radius: var(--border-radius);
+        }
+
+
+        .emphasis-text {
+            font-weight: bold;
+        }
+
+
+        .compact-layout p {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .compact-layout h3 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            min-height: 30px;
+        }
+
+        .compact-layout li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .compact-layout .semantic-instruction {
+            margin: 15px 0;
+            padding: 15px;
+        }
+
+        .compact-layout .semantic-instruction h3 {
+            margin-bottom: 10px;
+        }
+
+        .compact-layout .semantic-instruction p {
+            margin-bottom: 8px;
+        }
+
+        .compact-layout .instruction-text {
+            padding: 20px 25px;
+        }
+
+        .compact-layout .instruction-text li {
+            margin-bottom: 8px;
+        }
+
+        .compact-layout .key-instruction {
+            margin: 15px 0;
+        }
+
+        .compact-layout .container > div {
+            min-height: 60vh;
+            padding: 30px;
+        }
+
+        .compact-layout .task-indicator {
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        .compact-layout button {
+            padding: 8px 20px;
+            margin-top: 20px;
+        }
+
+        .self-assessment-heading {
+    width: 100%;
+    text-align: left;
+    margin-top: 40px;  
+    margin-bottom: 20px;  
+    font-weight: bold;
+    font-size: 1.1em;
+    padding-top: 20px; 
+}
+
+        #blank-page {
+            background-color: #f5f7fa;
+        }
+
+        #blank-page .experiment-content {
+            position: relative;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #blank-page .fixation-cross {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .play-button {
+            display: none !important;
+        }
+        
+        /* Audio player styling */
+        .audio-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .audio-label {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+            font-weight: 500;
+        }
+
+        .part2-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        .item-container {
+            width: 50%;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        
+        .item-container.first-item {
+            border-right: 1px dashed #ccc;
+        }
+        
+        .item-label {
+            font-weight: 500;
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: var(--dark-color);
+        }
+        
+        .item-content {
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        /* Alert box for volume warnings */
+        .volume-alert {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+            max-width: 400px;
+            text-align: justify;
+        }
+        
+        .volume-alert h3 {
+            color: var(--warning-color);
+            margin-bottom: 15px;
+        }
+        
+        .volume-alert p {
+            margin-bottom: 20px;
+        }
+        
+        .volume-alert button {
+            background: var(--warning-color);
+            margin-top: 10px;
+        }
+        
+        .volume-alert button:hover {
+            background: #c0392b;
+        }
+
+        .visual-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px 0;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 5;
+        }
+
+        .visual-label {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+            font-weight: 500;
+        }
+
+        .visual-word {
+            font-size: 42px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--dark-color);
+            background-color: rgba(255,255,255,0.9);
+            padding: 20px 40px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+            min-width: 300px;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-status {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .submit-status.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .submit-status.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .submit-status.pending {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+
+
+        .question-number {
+    font-weight: bold;
+    color: var(--primary-dark);
+    font-size: 1.2em;
+    margin-right: 8px;
+    display: inline;
+}
+
+label.question-label {
+    font-weight: 600;
+    font-size: 1.1em;
+    color: var(--dark-color);
+    margin-bottom: 18px;
+    line-height: 1.5;
+    display: inline;
+}
+
+.form-question-group {
+    margin-bottom: 25px;
+    margin-top: 40px;
+}
+
+label.checkbox-label {
+    font-weight: normal;
+    margin-bottom: 12px; 
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px 0; 
+}
+
+label.checkbox-label input[type="checkbox"] {
+    margin-right: 12px;
+    transform: scale(1.2); 
+}
+
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #dee2e6;
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+    font-size: 1em;
+    transition: all 0.3s;
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
+    background-color: #fff;
+}
+
+/* Data loss warning modal styles */
+.data-warning-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.data-warning-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    max-width: 500px;
+    text-align: justify;
+    border: 3px solid var(--warning-color);
+}
+
+.data-warning-content h3 {
+    color: var(--warning-color);
+    margin-bottom: 20px;
+    font-size: 1.4em;
+}
+
+.data-warning-content p {
+    margin-bottom: 25px;
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+.data-warning-content button {
+    background: var(--warning-color);
+    color: white;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.data-warning-content button:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+}
+
+.top-progress {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    z-index: 1000;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: white;
+    transition: transform 0.2s ease;
+}
+
+.top-progress:hover {
+    transform: scale(1.05);
+}
+
+.top-progress::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #f8f9fa;
+    z-index: 1;
+}
+
+.top-progress::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: conic-gradient(
+        from -90deg at 50% 50%,
+        var(--primary-color) 0deg,
+        var(--primary-color) calc(var(--progress-width, 0%) * 2.52deg),
+        var(--secondary-color) calc(var(--progress-width, 0%) * 3.6deg),
+        #e9ecef calc(var(--progress-width, 0%) * 3.6deg)
+    );
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 11px;
+    font-weight: bold;
+    color: var(--dark-color);
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.top-progress:hover .progress-text {
+    opacity: 1;
+}
+
+.progress-tooltip {
+    display: none;
+}
+
+
+.sound-wave {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    height: 40px;
+    justify-content: center;
+}
+
+.wave-bar {
+    width: 4px;
+    background: var(--primary-color); 
+    border-radius: 2px;
+    animation: wave 1.2s ease-in-out infinite;
+}
+
+.semantic-task .wave-bar {
+    background: var(--secondary-color); 
+}
+
+.wave-bar:nth-child(1) { height: 20px; animation-delay: 0s; }
+.wave-bar:nth-child(2) { height: 30px; animation-delay: 0.2s; }
+.wave-bar:nth-child(3) { height: 25px; animation-delay: 0.4s; }
+.wave-bar:nth-child(4) { height: 35px; animation-delay: 0.6s; }
+.wave-bar:nth-child(5) { height: 20px; animation-delay: 0.8s; }
+
+@keyframes wave {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
+    50% { opacity: 1; transform: scaleY(1); }
+}
+
+.sound-wave.completed .wave-bar {
+    animation: none;
+    background: #343a40 !important; 
+    opacity: 0.6;  
+    transform: scaleY(0.5);
+}
+
+    </style>
+</head>
+
+
+<body>
+    <div class="top-progress" id="top-progress">
+        <span class="progress-text" id="progress-text">0%</span>
+    </div>
+
+    <audio id="audio-player" class="hidden"></audio>
+    <div id="volume-alert" class="volume-alert hidden">
+        <h3>Wichtig!</h3>
+        <p><strong>Bitte Sound checken:</strong> Kopfhörer aufsetzen und Ton aktivieren.</p>
+        <button id="volume-ok-btn">Weiter</button>
+    </div>
+    <div class="container">
+        <div id="welcome-section">
+            <div class="experiment-content">
+                <h1>Willkommen</h1>
+
+                <div class="welcome-columns">
+                    <div class="welcome-text">
+                        <h3>Über das Experiment</h3>
+                        <p class="instruction-text">Vielen Dank für Ihre Teilnahme an diesem Experiment.</p>
+
+                        <p class="instruction-text">Das Experiment besteht aus zwei Teilen und dauert insgesamt höchstens 20 Minuten.</p>
+
+                        <p class="instruction-text">Bitte lesen Sie die Anweisungen sorgfältig und halten Sie sich genau daran.</p>
+                    </div>
+
+                    <div class="welcome-info">
+                        <h3>Vor dem Start</h3>
+                        <p class="instruction-text">Bitte geben Sie zunächst einige Informationen an. Diese Angaben werden streng vertraulich behandelt und dienen ausschließlich wissenschaftlichen Zwecken.</p>
+                    
+                        <div class="form-group">
+                            <label for="gender" class="required">Geschlecht</label>
+                            <select id="gender" name="gender" required>
+                                <option value="">Bitte auswählen</option>
+                                <option value="male">Männlich</option>
+                                <option value="female">Weiblich</option>
+                                <option value="diverse">Divers</option>
+                                <option value="no-answer">Keine Angabe</option>
+                            </select>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label for="native-language" class="required">Muttersprache</label>
+                            <select id="native-language" name="native-language" required>
+                                <option value="">Bitte auswählen</option>
+                                <option value="german">Deutsch</option>
+                                <option value="chinese">Chinesisch</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="startBtn">Experiment starten</button>
+            </div>
+        </div>
+
+        <div id="instruction-section" class="hidden lexical-task">
+            <div class="experiment-content">
+                <h2>Anleitung für Teil 1</h2>
+                <div class="instruction-text">
+                    <p>IIm ersten Teil des Experiments hören Sie jeweils eine Audiodatei einzeln.</p>
+    
+                    <p><strong>Ihre Aufgabe ist es, zu entscheiden, ob es sich um ein echtes deutsches Wort handelt oder nicht:</strong></p>
+    
+                    <p>Für ein echtes deutsches Wort → Drücken Sie <span class="keyboard-key">Q</span></p>
+    
+                    <p>Für kein echtes deutsches Wort → Drücken Sie <span class="keyboard-key">P</span></p>
+    
+                    <p class="uncertainty-note">Wenn Sie sich unsicher sind oder ein Wort nicht kennen, wählen Sie bitte "Nein" (P).</p>
+    
+                    <p><strong>Antworten Sie bitte so schnell wie möglich, nachdem Sie das Wort gehört haben.</strong></p>
+    
+                    <p>Zunächst beginnen wir mit einer kurzen Übungsrunde, damit Sie sich mit dem Ablauf vertraut machen können.</p>
+                </div>
+                <button id="instructionNextBtn">Übung starten</button>
+            </div>
+        </div>
+    
+        <div id="practice-section" class="hidden lexical-task">
+            <div class="experiment-content">
+                <h2>Übung</h2>
+                <div class="task-indicator">Deutsches Wort?</div>
+                <div class="fixation-cross">+</div>
+                <div class="audio-container hidden">
+                    <div class="sound-wave" id="practice-wave">
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                    </div>
+                </div>
+                <div class="prompt hidden">Ja (Q) Nein (P)</div>
+            </div>
+        </div>
+    
+        <div id="practice-end-section" class="hidden lexical-task">
+            <div class="experiment-content">
+                <h2>Übung beendet</h2>
+    
+                <div class="practice-end-container">
+                    <p class="instruction-text">Sie haben die Übungsphase abgeschlossen. Jetzt beginnt der Hauptteil des Experiments.</p>
+    
+                    <p class="instruction-text emphasis">Antworten Sie bitte so schnell wie möglich.</p>
+                </div>
+    
+                <button id="startMainBtn">Mit dem Hauptteil beginnen</button>
+            </div>
+        </div>
+    
+        <div id="experiment-section" class="hidden lexical-task">
+            <div class="experiment-content">
+                <div class="task-indicator">Deutsches Wort?</div>
+                <div class="fixation-cross">+</div>
+                <div class="audio-container hidden">
+                    <div class="sound-wave" id="main-wave">
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                    </div>
+                </div>
+                <div class="prompt hidden">Ja (Q) Nein (P)</div>
+            </div>
+        </div>
+    
+        <div id="break-section" class="hidden">
+            <div class="experiment-content">
+                <h2>Teil 1 abgeschlossen</h2>
+                <div class="content-box">
+                    <p class="instruction-text">Sie haben den ersten Teil abgeschlossen. In Kürze beginnt der zweite Teil des Experiments.</p>
+                    <div class="transition-timer">
+                        <p>Der zweite Teil beginnt in <span id="countdown">5</span> Sekunden automatisch.</p>
+    
+                        <p>Oder klicken Sie auf den Button, um sofort fortzufahren.</p>
+                    </div>
+                </div>
+                <button id="continueBtn">Jetzt mit Teil 2 fortfahren</button>
+            </div>
+        </div>
+    
+        <div id="part2-instruction" class="hidden semantic-task compact-layout">
+            <div class="experiment-content">
+                <h2>Anleitung für Teil 2</h2>
+    
+                <div class="instruction-text">
+                    <p>Im zweiten Teil <strong>hören</strong> Sie zunächst ein Item als Audiodatei und <strong>sehen</strong> anschließend ein zweites Item auf dem Bildschirm.</p> 
+                    <p><strong>Ihre Aufgabe besteht darin, zu entscheiden, ob die beiden Items semantisch miteinander verwandt sind.</strong></p>
+    
+                    <div class="semantic-instruction">
+                        <h3>Was bedeutet "semantisch verwandt"?</h3>
+                        <p>Wörter sind semantisch verwandt, wenn sie:</p>
+                        <ul>
+                            <li>eine ähnliche Bedeutung haben (zum Beispiel Synonyme wie „groß" und „riesig")</li>
+                            <li>gegensätzlich sind (zum Beispiel „heiß" und „kalt")</li>
+                            <li>Teil desselben semantischen Feldes sind (zum Beispiel „Bier" und „trinken", „Buch" und „lesen" oder „Apfel" und „Banane", da sie beide Obstsorten bezeichnen)</li>
+                        </ul>
+                    </div>
+    
+                    <div class="key-instruction">
+                        <p>Für "Ja" (semantisch verwandt) → Drücken Sie <span class="keyboard-key">Q</span></p>
+                        <p>Für "Nein" (nicht semantisch verwandt) → Drücken Sie <span class="keyboard-key">P</span></p>
+                    </div>
+        
+                    <p class="uncertainty-note">Wenn Sie sich unsicher sind oder ein Wort nicht kennen, wählen Sie bitte "Nein" (P).</p>
+        
+                    <p><strong>Antworten Sie bitte so schnell wie möglich, nachdem Sie das zweite Wort gelesen haben.</strong></p>
+        
+                    <p>Auch hier beginnen wir zunächst mit einer kurzen Übungsrunde.</p>
+                </div>
+        
+                <button id="part2InstructionNextBtn">Übung starten</button>
+            </div>
+        </div>
+        
+        <div id="part2-practice-section" class="hidden semantic-task">
+            <div class="experiment-content">
+                <h2>Übung</h2>
+                <div class="task-indicator">Semantisch verwandt?</div>
+                <div class="fixation-cross">+</div>
+                
+                <div class="part2-container hidden">
+                    <div class="item-container first-item">
+                        <div class="item-label">Item 1</div>
+                        <div class="item-content">
+                            <div class="sound-wave" id="part2-practice-wave">
+                                <div class="wave-bar"></div>
+                                <div class="wave-bar"></div>
+                                <div class="wave-bar"></div>
+                                <div class="wave-bar"></div>
+                                <div class="wave-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="item-container">
+                        <div class="item-label">Item 2</div>
+                        <div class="item-content">
+                            <div class="visual-word" id="part2-practice-visual-word"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="prompt hidden">Ja (Q) Nein (P)</div>
+            </div>
+        </div>
+        
+        <div id="part2-practice-end-section" class="hidden semantic-task">
+            <div class="experiment-content">
+                <h2>Teil 2 - Übung beendet</h2>
+        
+                <div class="practice-end-container">
+                    <p class="instruction-text">Sie haben die Übungsphase für Teil 2 abgeschlossen. Jetzt beginnt der Hauptteil von Teil 2.</p>
+        
+                    <p class="instruction-text emphasis">Antworten Sie bitte so schnell wie möglich.</p>
+                </div>
+        
+                <button id="startPart2MainBtn">Mit dem Hauptteil von Teil 2 beginnen</button>
+            </div>
+        </div>
+
+
+    <div id="part2-section" class="hidden semantic-task">
+        <div class="experiment-content">
+            <div class="task-indicator">Semantisch verwandt?</div>
+            <div class="fixation-cross">+</div>
+            
+   
+            <div class="part2-container hidden">
+                <div class="item-container first-item">
+                    <div class="item-label">Item 1</div>
+                    <div class="item-content">
+                        <div class="sound-wave" id="part2-main-wave">
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="item-container">
+                    <div class="item-label">Item 2</div>
+                    <div class="item-content">
+                        <div class="visual-word" id="part2-main-visual-word"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="prompt hidden">Ja (Q) Nein (P)</div>
+        </div>
+    </div>
+    
+    <div id="blank-page" class="hidden">
+        <div class="experiment-content">
+            <div class="fixation-cross">+</div>
+        </div>
+    </div>
+    
+    <div id="chinese-info-section" class="hidden">
+        <div class="experiment-content">
+            <h2>Deutschkenntnisse - Fragebogen</h2>
+            <div class="form-container">
+                <p class="emphasis-text"><strong>Da Sie Chinesisch als Muttersprache angegeben haben, benötigen wir einige zusätzliche Informationen zu Ihren Deutschkenntnissen.</strong></p>
+    
+                <div class="form-group">
+                    <label for="learning-years" class="required">Wie lange lernen Sie Deutsch? (in Jahren)</label>
+                    <input type="number" id="learning-years" name="learning-years" min="0" max="50">
+                </div>
+    
+                <div class="form-group">
+                    <label for="hours-per-week" class="required">Wie viele Stunden pro Woche nutzen Sie Deutsch?</label>
+                    <input type="number" id="hours-per-week" name="hours-per-week" min="0" max="168">
+                </div>
+    
+                <div class="form-group">
+                    <label for="lived-german" class="required">Haben Sie in einem deutschsprachigen Land gelebt?</label>
+                    <select id="lived-german" name="lived-german">
+                        <option value="">Bitte auswählen</option>
+                        <option value="yes">Ja</option>
+                        <option value="no">Nein</option>
+                    </select>
+                    <p class="lived-in-note">Deutschsprachige Länder: Deutschland, Österreich, Schweiz, Liechtenstein</p>
+                </div>
+    
+                <div class="form-group" id="lived-months-group">
+                    <label for="lived-months">Falls ja, wie lange? (in Monaten)</label>
+                    <input type="number" id="lived-months" name="lived-months" min="0" max="600">
+                </div>
+    
+                <p class="self-assessment-heading">Wie schätzen Sie Ihre Deutschkenntnisse ein? </p>
+    
+                <div class="form-group">
+                    <label for="written-german" class="required">Schreiben – Selbsteinschätzung nach GER-Stufen (A1 - C2)</label>
+                    <div class="rating-scale">
+                        <div class="slider-container">
+                            <span class="slider-min">A1</span>
+                            <input type="range" min="1" max="6" value="3" class="slider" id="written-slider">
+                            <span class="slider-max">C2</span>
+                            <span class="slider-value" id="written-value">A1</span>
+                        </div>
+                        <div class="detailed-label" id="written-detailed-label">Kann sich zu vertrauten Themen schriftlich äußern</div>
+                        <input type="hidden" id="written-german" name="written-german" value="3">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="oral-german" class="required">Sprechen – Selbsteinschätzung nach GER-Stufen (A1 - C2)</label>
+                    <div class="rating-scale">
+                        <div class="slider-container">
+                            <span class="slider-min">A1</span>
+                            <input type="range" min="1" max="6" value="3" class="slider" id="oral-slider">
+                            <span class="slider-max">C2</span>
+                            <span class="slider-value" id="oral-value">A1</span>
+                        </div>
+                        <div class="detailed-label" id="oral-detailed-label">Kann sich zu vertrauten Themen mündlich äußern</div>
+                        <input type="hidden" id="oral-german" name="oral-german" value="3">
+                    </div>
+                </div>
+                
+          
+                <button id="chineseInfoNextBtn">Weiter zum Feedback-Fragebogen</button>
+            </div>
+        </div>
+    </div>  
+
+
+    <div id="feedback-section" class="hidden">
+                    <div class="experiment-content">
+                        <h2>Feedback zum Experiment</h2>
+                        <div class="form-container">
+                            <p class="emphasis-text">
+                                <strong>Abschließend möchten wir gerne Ihr Feedback zum Experiment erfahren.</strong>
+                            </p>
+                
+                
+                                <div class="form-question-group">
+                                    <span class="question-number">1.</span><label class="question-label required">Wie waren die Audioaufnahmen für Sie? (multiple)</label>
+                                <div class="checkbox-options">
+                                    <label class="checkbox-label"><input type="checkbox" name="audio-issues" value="zu-schnell"> Zu schnell (z. B. ich konnte mich noch nicht fokussieren, bevor das Item abgespielt wurde.)</label>
+                                    <label class="checkbox-label"><input type="checkbox" name="audio-issues" value="zu-langsam"> Zu langsam (z. B. die Pausen zwischen den Wörtern waren zu lang.)</label>
+                                    <label class="checkbox-label"><input type="checkbox" name="audio-issues" value="nicht-klar"> Nicht klar verständlich (z. B. Rauschen, Knacklaute oder undeutliche Aussprache)</label>
+                                    <label class="checkbox-label"><input type="checkbox" name="audio-issues" value="lautstaerke"> Lautstärke-Probleme (z. B. zu leise oder ungleichmäßig laut)</label>
+                                    <label class="checkbox-label"><input type="checkbox" name="audio-issues" value="keine-probleme"> Keine Probleme (Audio war gut verständlich und angemessen getimed.)</label>
+                                </div>
+                            </div>
+                
+
+                            <div class="form-question-group">
+                                <span class="question-number">2.</span><label for="task-clarity" class="question-label required">Wie verständlich waren die Anweisungen für Sie?</label>
+                                <select id="task-clarity" name="task-clarity" required>
+                                    <option value="">Bitte auswählen</option>
+                                    <option value="teil1-unklar">Bei Teil 1 (Lexical Decision) war ich unsicher, was ich tun sollte.</option>
+                                    <option value="teil2-unklar">Bei Teil 2 (Semantic Relatedness Judgement) war ich unsicher, was ich tun sollte.</option>
+                                    <option value="beide-unklar">Bei beiden Teilen war ich unsicher.</option>
+                                    <option value="beide-klar">Ich wusste immer, was zu tun ist.</option>
+                                </select>
+                            </div>
+                
+          
+                                <div class="form-question-group">
+                                    <span class="question-number">3.</span><label for="experiment-duration" class="question-label required">Wie ging es Ihnen mit der Dauer des Experiments?</label>
+                                <select id="experiment-duration" name="experiment-duration" required>
+                                    <option value="">Bitte auswählen</option>
+                                    <option value="angemessen">Die Dauer war genau richtig.</option>
+                                    <option value="etwas-zu-lang">Ich wurde etwas ungeduldig.</option>
+                                    <option value="zu-lang">Ich wollte schon früher aufhören.</option>
+                                </select>
+                            </div>
+                
+
+                                <div class="form-question-group">
+                                    <span class="question-number">4.</span><label for="additional-comments" class="question-label">Weitere Anmerkungen oder Fragen (optional):</label>
+                                <textarea id="additional-comments" name="additional-comments" rows="4"
+                                          placeholder="Sie können hier gerne auch in Ihrer Muttersprache schreiben (z. B. Chinesisch)."></textarea>
+                            </div>
+                
+                       
+                            <div id="data-warning-modal" class="data-warning-modal hidden">
+                                <div class="data-warning-content">
+                                    <h3>Wichtig!</h3>
+                                    <p>Bitte am Ende auf <strong>"Daten absenden"</strong> klicken - sonst gehen Ihre Daten <strong>verloren</strong>.</p>
+                                    <button id="data-warning-ok-btn">Weiter</button>
+                                </div>
+                            </div>
+                
+                            <!-- Status und Absenden -->
+                            <div id="submit-status" class="submit-status hidden"></div>
+                            <button id="feedbackSubmitBtn">Daten absenden und Experiment beenden</button>
+                        </div>
+                    </div>
+                </div>
+    
+    <div id="thank-you-section" class="hidden">
+        <div class="experiment-content">
+            <h2>Experiment abgeschlossen</h2>
+            <div class="thank-you-container">
+                <p>Ihre Daten wurden erfolgreich gespeichert und heruntergeladen.</p>
+    
+                <div class="participant-code">
+                    Ihr Teilnehmercode: <strong id="participant-code">ABC123</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        // Practice words for the first part
+        let practiceWords = [
+    { liste: "LD_Übung", item: "Doppelgänger", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/9ocypb.mp3" },
+    { liste: "LD_Übung", item: "mboga", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/6j9zwz.mp3" },
+    { liste: "LD_Übung", item: "Papier", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/4n3sdf.mp3" },
+    { liste: "LD_Übung", item: "Rafiki", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/xnyrab.mp3" },
+    { liste: "LD_Übung", item: "Rucksack", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/dgml18.mp3" }
+];
+    
+        // Word sets based on native language
+        let deWords = [
+    // Halbwort items 
+    { liste: "LD_DE", item: "[ˈbɔdən]", kategorie: "Halbwort", vokal: "[ɔː] & [ɔ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/brucd8.mp3" },
+    { liste: "LD_DE", item: "[ˈbeːsɐ]", kategorie: "Halbwort", vokal: "[eː] & [ɛ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/gaq7pv.mp3" },
+    { liste: "LD_DE", item: "[boːk]", kategorie: "Halbwort", vokal: "[ɔː] & [ɔ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/olkes2.mp3" },
+    { liste: "LD_DE", item: "[ˈbuːtɐ]", kategorie: "Halbwort", vokal: "[uː] & [ʊ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/fi0ri4.mp3" },
+    { liste: "LD_DE", item: "[fiːʃ]", kategorie: "Halbwort", vokal: "[iː] & [ɪ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/6s4ywc.mp3" },
+    { liste: "LD_DE", item: "[ˈflɪɡən]", kategorie: "Halbwort", vokal: "[iː] & [ɪ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/xyi68a.mp3" },
+    { liste: "LD_DE", item: "[flʊɐ̯]", kategorie: "Halbwort", vokal: "[uː] & [ʊ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/3hmuw8.mp3" },
+    { liste: "LD_DE", item: "[ˈfʁɪdən]", kategorie: "Halbwort", vokal: "[iː] & [ɪ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/378wor.mp3" },
+    { liste: "LD_DE", item: "[ɡaːnts]", kategorie: "Halbwort", vokal: "[aː] & [a]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/5uc50l.mp3" },
+    { liste: "LD_DE", item: "[ɡas]", kategorie: "Halbwort", vokal: "[aː] & [a]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/7ad9eo.mp3" },
+    { liste: "LD_DE", item: "[heːmt]", kategorie: "Halbwort", vokal: "[eː] & [ɛ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/re3p5i.mp3" },
+    { liste: "LD_DE", item: "[kɔl]", kategorie: "Halbwort", vokal: "[ɔː] & [ɔ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/2a89oj.mp3" },
+    { liste: "LD_DE", item: "[ˈkeːtə]", kategorie: "Halbwort", vokal: "[eː] & [ɛ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/cbvd0y.mp3" },
+    { liste: "LD_DE", item: "[ˈkiːstə]", kategorie: "Halbwort", vokal: "[iː] & [ɪ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/s2qowp.mp3" },
+    { liste: "LD_DE", item: "[ˈklaːpən]", kategorie: "Halbwort", vokal: "[aː] & [a]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/q68g57.mp3" },
+    { liste: "LD_DE", item: "[ˈkloːpfən]", kategorie: "Halbwort", vokal: "[ɔː] & [ɔ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/wef9qg.mp3" },
+    { liste: "LD_DE", item: "[koːfɐ]", kategorie: "Halbwort", vokal: "[ɔː] & [ɔ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/vov455.mp3" },
+    { liste: "LD_DE", item: "[kʊ]", kategorie: "Halbwort", vokal: "[uː] & [ʊ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/mmkbxq.mp3" },
+    { liste: "LD_DE", item: "[kuːs]", kategorie: "Halbwort", vokal: "[uː] & [ʊ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/1dy903.mp3" },
+    { liste: "LD_DE", item: "[laːst]", kategorie: "Halbwort", vokal: "[aː] & [a]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/1n370q.mp3" },
+    { liste: "LD_DE", item: "[ˈladən]", kategorie: "Halbwort", vokal: "[aː] & [a]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/o8qf7u.mp3" },
+    { liste: "LD_DE", item: "[lɔp]", kategorie: "Halbwort", vokal: "[ɔː] & [ɔ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/rbu1p1.mp3" },
+    { liste: "LD_DE", item: "[ˈlɛzən]", kategorie: "Halbwort", vokal: "[eː] & [ɛ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/ktvrs1.mp3" },
+    { liste: "LD_DE", item: "[luːft]", kategorie: "Halbwort", vokal: "[uː] & [ʊ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/0xfkds.mp3" },
+    { liste: "LD_DE", item: "[tʊx]", kategorie: "Halbwort", vokal: "[uː] & [ʊ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/jke2n9.mp3" },
+    { liste: "LD_DE", item: "[ˈʃɪbən]", kategorie: "Halbwort", vokal: "[iː] & [ɪ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/og2tnt.mp3" },
+    { liste: "LD_DE", item: "[ʃnɛ]", kategorie: "Halbwort", vokal: "[eː] & [ɛ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/e8phxb.mp3" },
+    { liste: "LD_DE", item: "[viːt͡s]", kategorie: "Halbwort", vokal: "[iː] & [ɪ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/6rsypd.mp3" },
+    { liste: "LD_DE", item: "[ˈbɛzn̩]", kategorie: "Halbwort", vokal: "[eː] & [ɛ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/123yqh.mp3" },
+    { liste: "LD_DE", item: "[nat]", kategorie: "Halbwort", vokal: "[aː] & [a]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/vee1dx.mp3" },
+    
+    // Wort items
+    { liste: "LD_DE", item: "anrufen", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/bxx0kk.mp3" },
+    { liste: "LD_DE", item: "Fabrik", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/ufx0jr.mp3" },
+    { liste: "LD_DE", item: "Familie", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/gxyozd.mp3" },
+    { liste: "LD_DE", item: "Farbe", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/n4hh68.mp3" },
+    { liste: "LD_DE", item: "Feuer", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/w0x2tt.mp3" },
+    { liste: "LD_DE", item: "gründen", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/4dxyeq.mp3" },
+    { liste: "LD_DE", item: "heute", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/fhqeoh.mp3" },
+    { liste: "LD_DE", item: "Kabine", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/u1wb2q.mp3" },
+    { liste: "LD_DE", item: "Karotte", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/4qym94.mp3" },
+    { liste: "LD_DE", item: "Kino", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/oqswom.mp3" },
+    { liste: "LD_DE", item: "lächeln", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/5pzqkn.mp3" },
+    { liste: "LD_DE", item: "Mädchen", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/k3q85e.mp3" },
+    { liste: "LD_DE", item: "Magazin", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/184ytv.mp3" },
+    { liste: "LD_DE", item: "Melone", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/ad1wy1.mp3" },
+    { liste: "LD_DE", item: "Methode", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/n1pmm8.mp3" },
+    { liste: "LD_DE", item: "Oma", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/prtx6z.mp3" },
+    { liste: "LD_DE", item: "Pilot", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/jk1zc3.mp3" },
+    { liste: "LD_DE", item: "Pirat", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/8ygceq.mp3" },
+    { liste: "LD_DE", item: "Rakete", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/8ozgjj.mp3" },
+    { liste: "LD_DE", item: "Rose", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/tkjg4w.mp3" },
+    { liste: "LD_DE", item: "Schokolade", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/ovkesr.mp3" },
+    { liste: "LD_DE", item: "Tagebuch", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/y6w0xd.mp3" },
+    { liste: "LD_DE", item: "Tatsächlich", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/m2kuor.mp3" },
+    { liste: "LD_DE", item: "Telefon", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/t9icza.mp3" },
+    { liste: "LD_DE", item: "übrigens", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/gcqp9r.mp3" },
+    { liste: "LD_DE", item: "vielleicht", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/ltelfc.mp3" },
+    { liste: "LD_DE", item: "waschen", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/vo1nmm.mp3" },
+    { liste: "LD_DE", item: "Wiese", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/3re4bv.mp3" },
+    { liste: "LD_DE", item: "Witz", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/p8m8aq.mp3" },
+    { liste: "LD_DE", item: "zusammen", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/sq95fp.mp3" },
+    
+    // Pseudowort items
+    { liste: "LD_DE", item: "chakula", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/ocqbzc.mp3" },
+    { liste: "LD_DE", item: "Furaha", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/uxce4d.mp3" },
+    { liste: "LD_DE", item: "gari", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/4agtp5.mp3" },
+    { liste: "LD_DE", item: "JamboSalaam", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/qg2w1l.mp3" },
+    { liste: "LD_DE", item: "Jangwa", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/bmi57u.mp3" },
+    { liste: "LD_DE", item: "kazi", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/aono6y.mp3" },
+    { liste: "LD_DE", item: "MajiPaani", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/yi9ipw.mp3" },
+    { liste: "LD_DE", item: "Mikono", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/3dn5un.mp3" },
+    { liste: "LD_DE", item: "mwezi", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/80cq8h.mp3" },
+    { liste: "LD_DE", item: "NyotaTaara", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/v0ohey.mp3" },
+    { liste: "LD_DE", item: "RafikiMit", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/r97bv6.mp3" },
+    { liste: "LD_DE", item: "SafariYatra", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/5dlgac.mp3" },
+    { liste: "LD_DE", item: "samaki", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/wx7xno.mp3" },
+    { liste: "LD_DE", item: "SimbaSher", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/6u4mmt.mp3" },
+    { liste: "LD_DE", item: "Tafadhali", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/yx4waq.mp3" }
+];
+    
+let cnWords = [
+    // Halbwort items
+    { liste: "LD_CN", item: "[ˈbɔdən]", kategorie: "Halbwort", vokal: "[ɔː] & [ɔ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/brucd8.mp3" },
+    { liste: "LD_CN", item: "[ˈbeːsɐ]", kategorie: "Halbwort", vokal: "[eː] & [ɛ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/gaq7pv.mp3" },
+    { liste: "LD_CN", item: "[boːk]", kategorie: "Halbwort", vokal: "[ɔː] & [ɔ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/olkes2.mp3" },
+    { liste: "LD_CN", item: "[ˈbuːtɐ]", kategorie: "Halbwort", vokal: "[uː] & [ʊ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/fi0ri4.mp3" },
+    { liste: "LD_CN", item: "[fiːʃ]", kategorie: "Halbwort", vokal: "[iː] & [ɪ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/6s4ywc.mp3" },
+    { liste: "LD_CN", item: "[ˈflɪɡən]", kategorie: "Halbwort", vokal: "[iː] & [ɪ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/xyi68a.mp3" },
+    { liste: "LD_CN", item: "[flʊɐ̯]", kategorie: "Halbwort", vokal: "[uː] & [ʊ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/3hmuw8.mp3" },
+    { liste: "LD_CN", item: "[ˈfʁɪdən]", kategorie: "Halbwort", vokal: "[iː] & [ɪ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/378wor.mp3" },
+    { liste: "LD_CN", item: "[ɡaːnts]", kategorie: "Halbwort", vokal: "[aː] & [a]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/5uc50l.mp3" },
+    { liste: "LD_CN", item: "[ɡas]", kategorie: "Halbwort", vokal: "[aː] & [a]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/7ad9eo.mp3" },
+    { liste: "LD_CN", item: "[heːmt]", kategorie: "Halbwort", vokal: "[eː] & [ɛ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/re3p5i.mp3" },
+    { liste: "LD_CN", item: "[kɔl]", kategorie: "Halbwort", vokal: "[ɔː] & [ɔ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/2a89oj.mp3" },
+    { liste: "LD_CN", item: "[ˈkeːtə]", kategorie: "Halbwort", vokal: "[eː] & [ɛ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/cbvd0y.mp3" },
+    { liste: "LD_CN", item: "[ˈkiːstə]", kategorie: "Halbwort", vokal: "[iː] & [ɪ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/s2qowp.mp3" },
+    { liste: "LD_CN", item: "[ˈklaːpən]", kategorie: "Halbwort", vokal: "[aː] & [a]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/q68g57.mp3" },
+    { liste: "LD_CN", item: "[ˈkloːpfən]", kategorie: "Halbwort", vokal: "[ɔː] & [ɔ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/wef9qg.mp3" },
+    { liste: "LD_CN", item: "[koːfɐ]", kategorie: "Halbwort", vokal: "[ɔː] & [ɔ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/vov455.mp3" },
+    { liste: "LD_CN", item: "[kʊ]", kategorie: "Halbwort", vokal: "[uː] & [ʊ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/mmkbxq.mp3" },
+    { liste: "LD_CN", item: "[kuːs]", kategorie: "Halbwort", vokal: "[uː] & [ʊ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/1dy903.mp3" },
+    { liste: "LD_CN", item: "[laːst]", kategorie: "Halbwort", vokal: "[aː] & [a]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/1n370q.mp3" },
+    { liste: "LD_CN", item: "[ˈladən]", kategorie: "Halbwort", vokal: "[aː] & [a]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/o8qf7u.mp3" },
+    { liste: "LD_CN", item: "[lɔp]", kategorie: "Halbwort", vokal: "[ɔː] & [ɔ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/rbu1p1.mp3" },
+    { liste: "LD_CN", item: "[ˈlɛzən]", kategorie: "Halbwort", vokal: "[eː] & [ɛ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/ktvrs1.mp3" },
+    { liste: "LD_CN", item: "[luːft]", kategorie: "Halbwort", vokal: "[uː] & [ʊ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/0xfkds.mp3" },
+    { liste: "LD_CN", item: "[tʊx]", kategorie: "Halbwort", vokal: "[uː] & [ʊ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/jke2n9.mp3" },
+    { liste: "LD_CN", item: "[ˈʃɪbən]", kategorie: "Halbwort", vokal: "[iː] & [ɪ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/og2tnt.mp3" },
+    { liste: "LD_CN", item: "[ʃnɛ]", kategorie: "Halbwort", vokal: "[eː] & [ɛ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/e8phxb.mp3" },
+    { liste: "LD_CN", item: "[viːt͡s]", kategorie: "Halbwort", vokal: "[iː] & [ɪ]", isRealWord: false, kontrast: "lang - kurz", audioPath: "https://files.catbox.moe/6rsypd.mp3" },
+    { liste: "LD_CN", item: "[ˈbɛzn̩]", kategorie: "Halbwort", vokal: "[eː] & [ɛ]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/123yqh.mp3" },
+    { liste: "LD_CN", item: "[nat]", kategorie: "Halbwort", vokal: "[aː] & [a]", isRealWord: false, kontrast: "kurz - lang", audioPath: "https://files.catbox.moe/vee1dx.mp3" },
+    
+    // Pseudowort items
+    { liste: "LD_CN", item: "Bandari", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/q7mscs.mp3" },
+    { liste: "LD_CN", item: "Barua", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/rysuw5.mp3" },
+    { liste: "LD_CN", item: "Bustani", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/ql93yd.mp3" },
+    { liste: "LD_CN", item: "Chai", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/ksa5pr.mp3" },
+    { liste: "LD_CN", item: "Chakula", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/ocqbzc.mp3" },
+    { liste: "LD_CN", item: "Dawa", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/iwyq10.mp3" },
+    { liste: "LD_CN", item: "Fagia", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/gdc5zh.mp3" },
+    { liste: "LD_CN", item: "Furaha", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/uxce4d.mp3" },
+    { liste: "LD_CN", item: "Jambo", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/nbelf8.mp3" },
+    { liste: "LD_CN", item: "Jangwa", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/bmi57u.mp3" },
+    { liste: "LD_CN", item: "Jogoo", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/upuia8.mp3" },
+    { liste: "LD_CN", item: "Karibu", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/w00ubt.mp3" },
+    { liste: "LD_CN", item: "Kazi", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/aono6y.mp3" },
+    { liste: "LD_CN", item: "Kikapu", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/c65ibo.mp3" },
+    { liste: "LD_CN", item: "Kofia", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/joz6s2.mp3" },
+    { liste: "LD_CN", item: "Maji", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/yplsm9.mp3" },
+    { liste: "LD_CN", item: "Mikono", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/3dn5un.mp3" },
+    { liste: "LD_CN", item: "Mwezi", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/80cq8h.mp3" },
+    { liste: "LD_CN", item: "Ngoma", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/9fnjn1.mp3" },
+    { liste: "LD_CN", item: "Nyoka", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/s92aqx.mp3" },
+    { liste: "LD_CN", item: "Nyota", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/q7gkmx.mp3" },
+    { liste: "LD_CN", item: "Paani", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/89se1m.mp3" },
+    { liste: "LD_CN", item: "Piki", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/amm0j6.mp3" },
+    { liste: "LD_CN", item: "Punda", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/vi7tr1.mp3" },
+    { liste: "LD_CN", item: "Salaam", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/mobd4k.mp3" },
+    { liste: "LD_CN", item: "Simba", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/sb62s4.mp3" },
+    { liste: "LD_CN", item: "Taara", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/zdjg8a.mp3" },
+    { liste: "LD_CN", item: "Tafadhali", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/yx4waq.mp3" },
+    { liste: "LD_CN", item: "Upendo", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/xfly41.mp3" },
+    { liste: "LD_CN", item: "Zunguka", kategorie: "Pseudowort", vokal: "", isRealWord: false, kontrast: "", audioPath: "https://files.catbox.moe/9copwu.mp3" },
+    
+    // Wort items
+    { liste: "LD_CN", item: "Fabrik", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/ufx0jr.mp3" },
+    { liste: "LD_CN", item: "gründen", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/4dxyeq.mp3" },
+    { liste: "LD_CN", item: "Kabine", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/u1wb2q.mp3" },
+    { liste: "LD_CN", item: "Karotte", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/4qym94.mp3" },
+    { liste: "LD_CN", item: "Magazin", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/184ytv.mp3" },
+    { liste: "LD_CN", item: "Melone", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/ad1wy1.mp3" },
+    { liste: "LD_CN", item: "Methode", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/n1pmm8.mp3" },
+    { liste: "LD_CN", item: "Oma", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/prtx6z.mp3" },
+    { liste: "LD_CN", item: "Pilot", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/jk1zc3.mp3" },
+    { liste: "LD_CN", item: "Pirat", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/8ygceq.mp3" },
+    { liste: "LD_CN", item: "Rakete", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/8ozgjj.mp3" },
+    { liste: "LD_CN", item: "Schokolade", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/ovkesr.mp3" },
+    { liste: "LD_CN", item: "Tagebuch", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/y6w0xd.mp3" },
+    { liste: "LD_CN", item: "waschen", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/vo1nmm.mp3" },
+    { liste: "LD_CN", item: "Wiese", kategorie: "Wort", vokal: "", isRealWord: true, kontrast: "", audioPath: "https://files.catbox.moe/3re4bv.mp3" }
+];
+    
+        let part1Words = []; // Will be selected based on native language
+
+
+        let part2WordPairsEasy = [
+    { liste: "easy", item1: "[ˈkabəl]", audioPath1: "https://files.catbox.moe/glzja3.mp3", item2: "Leitung", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[aː] & [a]", kontrast: "kurz - lang" },
+    { liste: "easy", item1: "[haːs]", audioPath1: "https://files.catbox.moe/epn3ri.mp3", item2: "Wut", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[aː] & [a]", kontrast: "lang - kurz" },
+    { liste: "easy", item1: "[kʁaːft]", audioPath1: "https://files.catbox.moe/5j7d8x.mp3", item2: "stark", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[aː] & [a]", kontrast: "lang - kurz" },
+    { liste: "easy", item1: "[ˈnamə]", audioPath1: "https://files.catbox.moe/mh04f1.mp3", item2: "Unterschrift", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[aː] & [a]", kontrast: "kurz - lang" },
+    { liste: "easy", item1: "[ˈvaːfə]", audioPath1: "https://files.catbox.moe/q2fb60.mp3", item2: "Gewehr", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[aː] & [a]", kontrast: "lang - kurz" },
+    { liste: "easy", item1: "[feːst]", audioPath1: "https://files.catbox.moe/ise8xl.mp3", item2: "Wohnsitz", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[eː] & [ɛ]", kontrast: "lang - kurz" },
+    { liste: "easy", item1: "[ɡɛˈən]", audioPath1: "https://files.catbox.moe/l1kiuy.mp3", item2: "kommen", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[eː] & [ɛ]", kontrast: "kurz - lang" },
+    { liste: "easy", item1: "[ˈkeːtə]", audioPath1: "https://files.catbox.moe/cbvd0y.mp3", item2: "Perle", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[eː] & [ɛ]", kontrast: "lang - kurz" },
+    { liste: "easy", item1: "[ˈtaːʃə]", audioPath1: "https://files.catbox.moe/7uqpgu.mp3", item2: "Kaffee", kategorie: "Halbwort-völlig unverwandt", isRelated: false, vokal: "[aː] & [a]", kontrast: "" },
+    { liste: "easy", item1: "[ˈlɛbən]", audioPath1: "https://files.catbox.moe/wa95mc.mp3", item2: "wohnen", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[eː] & [ɛ]", kontrast: "kurz - lang" },
+    { liste: "easy", item1: "[faːst]", audioPath1: "https://files.catbox.moe/5c8iby.mp3", item2: "Wolke", kategorie: "Halbwort-völlig unverwandt", isRelated: false, vokal: "[aː] & [a]", kontrast: "" },
+    { liste: "easy", item1: "[meːsɐ]", audioPath1: "https://files.catbox.moe/vuza87.mp3", item2: "Gabel", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[eː] & [ɛ]", kontrast: "lang - kurz" },
+    { liste: "easy", item1: "[ˈklaːsə]", audioPath1: "https://files.catbox.moe/mgj84h.mp3", item2: "satt", kategorie: "Halbwort-völlig unverwandt", isRelated: false, vokal: "[aː] & [a]", kontrast: "" },
+    { liste: "easy", item1: "[ˈhoːfnʊŋ]", audioPath1: "https://files.catbox.moe/k1jgo2.mp3", item2: "Zahl", kategorie: "Halbwort-völlig unverwandt", isRelated: false, vokal: "[ɔː] & [ɔ]", kontrast: "" },
+    { liste: "easy", item1: "[ˈʁɛdən]", audioPath1: "https://files.catbox.moe/4l87me.mp3", item2: "sprechen", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[eː] & [ɛ]", kontrast: "kurz - lang" },
+    { liste: "easy", item1: "[fʁi:ʃ]", audioPath1: "https://files.catbox.moe/zbqrfj.mp3", item2: "kühl", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[iː] & [ɪ]", kontrast: "lang - kurz" },
+    { liste: "easy", item1: "[ˈliːpn̩]", audioPath1: "https://files.catbox.moe/mxvh00.mp3", item2: "Zunge", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[iː] & [ɪ]", kontrast: "lang - kurz" },
+    { liste: "easy", item1: "[ˈlɪbə]", audioPath1: "https://files.catbox.moe/ye12cp.mp3", item2: "Freundschaft", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[iː] & [ɪ]", kontrast: "kurz - lang" },
+    { liste: "easy", item1: "[koːpf]", audioPath1: "https://files.catbox.moe/vqse6n.mp3", item2: "Gebäck", kategorie: "Halbwort-völlig unverwandt", isRelated: false, vokal: "[ɔː] & [ɔ]", kontrast: "" },
+    { liste: "easy", item1: "[ˈʃpɪɡl̩]", audioPath1: "https://files.catbox.moe/30wga8.mp3", item2: "schminken", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[iː] & [ɪ]", kontrast: "kurz - lang" },
+    { liste: "easy", item1: "[ˈviːsn̩]", audioPath1: "https://files.catbox.moe/k05ith.mp3", item2: "Bescheid", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[iː] & [ɪ]", kontrast: "lang - kurz" },
+    { liste: "easy", item1: "[ˈkoːfɐ]", audioPath1: "https://files.catbox.moe/aoq8ps.mp3", item2: "Idee", kategorie: "Halbwort-völlig unverwandt", isRelated: false, vokal: "[ɔː] & [ɔ]", kontrast: "" },
+    { liste: "easy", item1: "[tsɪl]", audioPath1: "https://files.catbox.moe/lxxko7.mp3", item2: "Zweck", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[iː] & [ɪ]", kontrast: "kurz - lang" },
+    { liste: "easy", item1: "[ˈeːsən]", audioPath1: "https://files.catbox.moe/5elu1b.mp3", item2: "Mond", kategorie: "Halbwort-völlig unverwandt", isRelated: false, vokal: "[eː] & [ɛ]", kontrast: "" },
+    { liste: "easy", item1: "[ˈʃpʁeːçən]", audioPath1: "https://files.catbox.moe/utj3fk.mp3", item2: "Pflanze", kategorie: "Halbwort-völlig unverwandt", isRelated: false, vokal: "[eː] & [ɛ]", kontrast: "" },
+    { liste: "easy", item1: "[bʁɔt]", audioPath1: "https://files.catbox.moe/7u2bm0.mp3", item2: "backen", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[oː] & [ɔ]", kontrast: "kurz - lang" },
+    { liste: "easy", item1: "[klɔ]", audioPath1: "https://files.catbox.moe/psl9ec.mp3", item2: "Toilette", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[oː] & [ɔ]", kontrast: "kurz - lang" },
+    { liste: "easy", item1: "[ˈnɔtə]", audioPath1: "https://files.catbox.moe/307dlb.mp3", item2: "Wertung", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[oː] & [ɔ]", kontrast: "kurz - lang" },
+    { liste: "easy", item1: "[ˈpoːstɐ]", audioPath1: "https://files.catbox.moe/g1vthh.mp3", item2: "Plakat", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[oː] & [ɔ]", kontrast: "lang - kurz" },
+    { liste: "easy", item1: "[zoːmɐ]", audioPath1: "https://files.catbox.moe/ngarsb.mp3", item2: "Sonne", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[oː] & [ɔ]", kontrast: "lang - kurz" },
+    { liste: "easy", item1: "[ˈbrʊdɐ]", audioPath1: "https://files.catbox.moe/62ivk5.mp3", item2: "Cousin", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[uː] & [ʊ]", kontrast: "kurz - lang" },
+    { liste: "easy", item1: "[ˈʃteːlə]", audioPath1: "https://files.catbox.moe/sj4o8q.mp3", item2: "Traum", kategorie: "Halbwort-völlig unverwandt", isRelated: false, vokal: "[eː] & [ɛ]", kontrast: "" },
+    { liste: "easy", item1: "[taːŋk]", audioPath1: "https://files.catbox.moe/hsbnpa.mp3", item2: "Rutsch", kategorie: "Halbwort-völlig unverwandt", isRelated: false, vokal: "[iː] & [ɪ]", kontrast: "" },
+    { liste: "easy", item1: "[ˈtiːntə]", audioPath1: "https://files.catbox.moe/buw233.mp3", item2: "Schlüssel", kategorie: "Halbwort-völlig unverwandt", isRelated: false, vokal: "[iː] & [ɪ]", kontrast: "" },
+    { liste: "easy", item1: "[ˈbuːtɐ]", audioPath1: "https://files.catbox.moe/fi0ri4.mp3", item2: "Käse", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[uː] & [ʊ]", kontrast: "lang - kurz" },
+    { liste: "easy", item1: "[ˈviːntɐ]", audioPath1: "https://files.catbox.moe/7ysw6g.mp3", item2: "wenden", kategorie: "Halbwort-völlig unverwandt", isRelated: false, vokal: "[iː] & [ɪ]", kontrast: "" },
+    { liste: "easy", item1: "[duːm]", audioPath1: "https://files.catbox.moe/onrirn.mp3", item2: "faul", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[uː] & [ʊ]", kontrast: "lang - kurz" },
+    { liste: "easy", item1: "[ˈʃluːss]", audioPath1: "https://files.catbox.moe/xidwnr.mp3", item2: "Stein", kategorie: "Halbwort-völlig unverwandt", isRelated: false, vokal: "[uː] & [ʊ]", kontrast: "" },
+    { liste: "easy", item1: "[ˈtsuːkɐ]", audioPath1: "https://files.catbox.moe/rsx0ix.mp3", item2: "Himmel", kategorie: "Halbwort-völlig unverwandt", isRelated: false, vokal: "[uː] & [ʊ]", kontrast: "" },
+    { liste: "easy", item1: "[ˈgʁuːpə]", audioPath1: "https://files.catbox.moe/o31yzn.mp3", item2: "Mitglied", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[uː] & [ʊ]", kontrast: "lang - kurz" },
+    { liste: "easy", item1: "[ˈʃʊlə]", audioPath1: "https://files.catbox.moe/fhf59k.mp3", item2: "Gymnasium", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[uː] & [ʊ]", kontrast: "kurz - lang" },
+    { liste: "easy", item1: "[ʃtʊl]", audioPath1: "https://files.catbox.moe/ljootf.mp3", item2: "Sessel", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[uː] & [ʊ]", kontrast: "kurz - lang" },
+    { liste: "easy", item1: "[ˈzuːmɐ]", audioPath1: "https://files.catbox.moe/ho9q91.mp3", item2: "Gefühl", kategorie: "Halbwort-völlig unverwandt", isRelated: false, vokal: "[uː] & [ʊ]", kontrast: "" },
+    { liste: "easy", item1: "Auge", audioPath1: "https://files.catbox.moe/eetw61.mp3", item2: "Physik", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Auto", audioPath1: "https://files.catbox.moe/exkhpn.mp3", item2: "Fahrzeug", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Baum", audioPath1: "https://files.catbox.moe/ogt1ii.mp3", item2: "Laptop", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Berg", audioPath1: "https://files.catbox.moe/jhdpf1.mp3", item2: "Zucker", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Boot", audioPath1: "https://files.catbox.moe/1brmij.mp3", item2: "Segler", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Brief", audioPath1: "https://files.catbox.moe/i2tsvp.mp3", item2: "Nachricht", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Essig", audioPath1: "https://files.catbox.moe/6ka4b9.mp3", item2: "Schuh", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Fahrrad", audioPath1: "https://files.catbox.moe/fp9ehg.mp3", item2: "Motorrad", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Fenster", audioPath1: "https://files.catbox.moe/uv4yts.mp3", item2: "Scheibe", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Fluss", audioPath1: "https://files.catbox.moe/98u0p9.mp3", item2: "Löffel", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Freund", audioPath1: "https://files.catbox.moe/tbrge6.mp3", item2: "Bekannter", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Frühling", audioPath1: "https://files.catbox.moe/ok710o.mp3", item2: "Herbst", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Garten", audioPath1: "https://files.catbox.moe/1kfol5.mp3", item2: "Mathe", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "grün", audioPath1: "https://files.catbox.moe/pxvzwn.mp3", item2: "blau", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Hammer", audioPath1: "https://files.catbox.moe/2qzi7m.mp3", item2: "Block", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Hand", audioPath1: "https://files.catbox.moe/v030f9.mp3", item2: "Finger", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Haus", audioPath1: "https://files.catbox.moe/kqvmxw.mp3", item2: "Plastik", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "illegal", audioPath1: "https://files.catbox.moe/09i3o4.mp3", item2: "verboten", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Katze", audioPath1: "https://files.catbox.moe/i6yqkj.mp3", item2: "Anode", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Kleid", audioPath1: "https://files.catbox.moe/dczfhh.mp3", item2: "Seele", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "klug", audioPath1: "https://files.catbox.moe/enwviv.mp3", item2: "schlau", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Koch", audioPath1: "https://files.catbox.moe/0li32y.mp3", item2: "Kellner", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Lampe", audioPath1: "https://files.catbox.moe/1d8rf4.mp3", item2: "Licht", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Maus", audioPath1: "https://files.catbox.moe/7wyl0o.mp3", item2: "Hamster", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Nacht", audioPath1: "https://files.catbox.moe/7ms07v.mp3", item2: "Kupfer", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Rechner", audioPath1: "https://files.catbox.moe/edvlph.mp3", item2: "Internet", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Schlaf", audioPath1: "https://files.catbox.moe/gt4pe8.mp3", item2: "Mantel", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Sofa", audioPath1: "https://files.catbox.moe/imwioj.mp3", item2: "Couch", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Straße", audioPath1: "https://files.catbox.moe/9mzfxd.mp3", item2: "Strecke", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Tisch", audioPath1: "https://files.catbox.moe/4scmh7.mp3", item2: "Stuhl", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Tod", audioPath1: "https://files.catbox.moe/uro32x.mp3", item2: "Hörer", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Tor", audioPath1: "https://files.catbox.moe/7txuo4.mp3", item2: "Kunst", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Tür", audioPath1: "https://files.catbox.moe/gtkgg7.mp3", item2: "Eingang", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Wald", audioPath1: "https://files.catbox.moe/45i268.mp3", item2: "Salz", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Wasser", audioPath1: "https://files.catbox.moe/r878b7.mp3", item2: "Flüssigkeit", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "[ˈzanə]", audioPath1: "https://files.catbox.moe/59nl0o.mp3", item2: "Creme", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[aː] & [a]", kontrast: "kurz - lang" },
+    { liste: "easy", item1: "[ʃtoːk]", audioPath1: "https://files.catbox.moe/pv5yrk.mp3", item2: "Etage", kategorie: "Halbwort-mit dem Minimalpaarwort verwandt", isRelated: false, vokal: "[oː] & [ɔ]", kontrast: "lang - kurz" }
+];
+
+let part2WordPairsHard = [
+    { liste: "hard", item1: "Auge", audioPath1: "https://files.catbox.moe/eetw61.mp3", item2: "Physik", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Auto", audioPath1: "https://files.catbox.moe/exkhpn.mp3", item2: "Fahrzeug", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Bann", audioPath1: "https://files.catbox.moe/d69l37.mp3", item2: "Zug", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[aː] & [a]", kontrast: "kurz - lang" },
+    { liste: "hard", item1: "Baum", audioPath1: "https://files.catbox.moe/ogt1ii.mp3", item2: "Laptop", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Beet", audioPath1: "https://files.catbox.moe/s5s5q0.mp3", item2: "schlafen", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[eː] & [ɛ]", kontrast: "lang - kurz" },
+    { liste: "hard", item1: "bieten", audioPath1: "https://files.catbox.moe/61vr61.mp3", item2: "Wunsch", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[iː] & [ɪ]", kontrast: "kurz - lang" },
+    { liste: "hard", item1: "Blitz", audioPath1: "https://files.catbox.moe/y0cd6a.mp3", item2: "Donner", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Boot", audioPath1: "https://files.catbox.moe/1brmij.mp3", item2: "Segler", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Brief", audioPath1: "https://files.catbox.moe/i2tsvp.mp3", item2: "Nachricht", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Busse", audioPath1: "https://files.catbox.moe/kcj9nf.mp3", item2: "Strafe", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[uː] & [ʊ]", kontrast: "kurz - lang" },
+    { liste: "hard", item1: "Drucker", audioPath1: "https://files.catbox.moe/meunbx.mp3", item2: "Scanner", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Essig", audioPath1: "https://files.catbox.moe/6ka4b9.mp3", item2: "Schuh", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Fahrrad", audioPath1: "https://files.catbox.moe/fp9ehg.mp3", item2: "Motorrad", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Fell", audioPath1: "https://files.catbox.moe/qzrirq.mp3", item2: "Irrtum", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[eː] & [ɛ]", kontrast: "kurz - lang" },
+    { liste: "hard", item1: "Fenster", audioPath1: "https://files.catbox.moe/uv4yts.mp3", item2: "Scheibe", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Fluss", audioPath1: "https://files.catbox.moe/98u0p9.mp3", item2: "Löffel", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Freund", audioPath1: "https://files.catbox.moe/tbrge6.mp3", item2: "Bekannter", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "fröhlich", audioPath1: "https://files.catbox.moe/wez0cp.mp3", item2: "Lachen", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Frühling", audioPath1: "https://files.catbox.moe/ok710o.mp3", item2: "Herbst", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Garten", audioPath1: "https://files.catbox.moe/1kfol5.mp3", item2: "Mathe", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "grün", audioPath1: "https://files.catbox.moe/pxvzwn.mp3", item2: "blau", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Hammer", audioPath1: "https://files.catbox.moe/2qzi7m.mp3", item2: "Wolke", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Hand", audioPath1: "https://files.catbox.moe/v030f9.mp3", item2: "Finger", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Hemd", audioPath1: "https://files.catbox.moe/bv3kud.mp3", item2: "Hose", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Herr", audioPath1: "https://files.catbox.moe/c4jou7.mp3", item2: "hin", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[eː] & [ɛ]", kontrast: "kurz - lang" },
+    { liste: "hard", item1: "Schuhs", audioPath1: "https://files.catbox.moe/prfkhx.mp3", item2: "Treffer", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[uː] & [ʊ]", kontrast: "lang - kurz" },
+    { liste: "hard", item1: "ihn", audioPath1: "https://files.catbox.moe/5xf9qc.mp3", item2: "zu", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[iː] & [ɪ]", kontrast: "kurz - lang" },
+    { liste: "hard", item1: "illegal", audioPath1: "https://files.catbox.moe/09i3o4.mp3", item2: "verboten", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "irr", audioPath1: "https://files.catbox.moe/jcrq9x.mp3", item2: "euch", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[iː] & [ɪ]", kontrast: "kurz - lang" },
+    { liste: "hard", item1: "Kleid", audioPath1: "https://files.catbox.moe/dczfhh.mp3", item2: "Seele", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "klug", audioPath1: "https://files.catbox.moe/enwviv.mp3", item2: "schlau", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Koch", audioPath1: "https://files.catbox.moe/0li32y.mp3", item2: "Kellner", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Koma", audioPath1: "https://files.catbox.moe/mjt9n8.mp3", item2: "Punkt", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[ɔː] & [ɔ]", kontrast: "lang - kurz" },
+    { liste: "hard", item1: "Lampe", audioPath1: "https://files.catbox.moe/1d8rf4.mp3", item2: "Licht", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Löwe", audioPath1: "https://files.catbox.moe/ciajc1.mp3", item2: "Tiger", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Mahl", audioPath1: "https://files.catbox.moe/q0zbz8.mp3", item2: "Gummi", kategorie: "MWort-völlig unverwandt", isRelated: false, vokal: "[aː] & [a]", kontrast: "" },
+    { liste: "hard", item1: "Maus", audioPath1: "https://files.catbox.moe/7wyl0o.mp3", item2: "Hamster", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Miete", audioPath1: "https://files.catbox.moe/t9nqgh.mp3", item2: "Zentrum", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[iː] & [ɪ]", kontrast: "lang - kurz" },
+    { liste: "hard", item1: "Mus", audioPath1: "https://files.catbox.moe/wwnlg6.mp3", item2: "Notwendigkeit", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[uː] & [ʊ]", kontrast: "lang - kurz" },
+    { liste: "hard", item1: "Buhle", audioPath1: "https://files.catbox.moe/i43w73.mp3", item2: "Teller", kategorie: "MWort-völlig unverwandt", isRelated: false, vokal: "[uː] & [ʊ]", kontrast: "" },
+    { liste: "hard", item1: "Nacht", audioPath1: "https://files.catbox.moe/7ms07v.mp3", item2: "Kupfer", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Nord", audioPath1: "https://files.catbox.moe/0trabq.mp3", item2: "Unglück", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[ɔː] & [ɔ]", kontrast: "kurz - lang" },
+    { liste: "hard", item1: "offen", audioPath1: "https://files.catbox.moe/vswpya.mp3", item2: "Grill", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[ɔː] & [ɔ]", kontrast: "kurz - lang" },
+    { liste: "hard", item1: "Pflaster", audioPath1: "https://files.catbox.moe/oevxx0.mp3", item2: "Wundauflage", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Pinsel", audioPath1: "https://files.catbox.moe/bz9bye.mp3", item2: "Bürste", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Pollen", audioPath1: "https://files.catbox.moe/ixf5d3.mp3", item2: "Warschau", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[ɔː] & [ɔ]", kontrast: "kurz - lang" },
+    { liste: "hard", item1: "Ratte", audioPath1: "https://files.catbox.moe/ssnkv9.mp3", item2: "Anteil", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[aː] & [a]", kontrast: "kurz - lang" },
+    { liste: "hard", item1: "Rechner", audioPath1: "https://files.catbox.moe/edvlph.mp3", item2: "Internet", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Robe", audioPath1: "https://files.catbox.moe/tcvmtr.mp3", item2: "Kohl", kategorie: "MWort-völlig unverwandt", isRelated: false, vokal: "[ɔː] & [ɔ]", kontrast: "" },
+    { liste: "hard", item1: "Ruhm", audioPath1: "https://files.catbox.moe/sb9rla.mp3", item2: "Keks", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[uː] & [ʊ]", kontrast: "lang - kurz" },
+    { liste: "hard", item1: "Sand", audioPath1: "https://files.catbox.moe/p1l4kw.mp3", item2: "Meer", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Schall", audioPath1: "https://files.catbox.moe/q1ly03.mp3", item2: "Zahn", kategorie: "MWort-völlig unverwandt", isRelated: false, vokal: "[aː] & [a]", kontrast: "" },
+    { liste: "hard", item1: "schief", audioPath1: "https://files.catbox.moe/zhprbn.mp3", item2: "Regal", kategorie: "MWort-völlig unverwandt", isRelated: false, vokal: "[iː] & [ɪ]", kontrast: "" },
+    { liste: "hard", item1: "Schote", audioPath1: "https://files.catbox.moe/n2k0ak.mp3", item2: "Keller", kategorie: "MWort-völlig unverwandt", isRelated: false, vokal: "[ɔː] & [ɔ]", kontrast: "" },
+    { liste: "hard", item1: "Seife", audioPath1: "https://files.catbox.moe/gmokze.mp3", item2: "Shampoo", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "siezen", audioPath1: "https://files.catbox.moe/qa76fs.mp3", item2: "Tisch", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[iː] & [ɪ]", kontrast: "lang - kurz" },
+    { liste: "hard", item1: "Sofa", audioPath1: "https://files.catbox.moe/imwioj.mp3", item2: "Couch", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Sohlen", audioPath1: "https://files.catbox.moe/5k2prz.mp3", item2: "müssen", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[ɔː] & [ɔ]", kontrast: "lang - kurz" },
+    { liste: "hard", item1: "Speere", audioPath1: "https://files.catbox.moe/6jfnbr.mp3", item2: "Kuchen", kategorie: "MWort-völlig unverwandt", isRelated: false, vokal: "[eː] & [ɛ]", kontrast: "" },
+    { liste: "hard", item1: "Staat", audioPath1: "https://files.catbox.moe/99pc8u.mp3", item2: "Dorf", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[aː] & [a]", kontrast: "lang - kurz" },
+    { liste: "hard", item1: "Stahl", audioPath1: "https://files.catbox.moe/qhyzun.mp3", item2: "Pferd", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[aː] & [a]", kontrast: "lang - kurz" },
+    { liste: "hard", item1: "stehlen", audioPath1: "https://files.catbox.moe/x1xgzt.mp3", item2: "platzieren", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[eː] & [ɛ]", kontrast: "lang - kurz" },
+    { liste: "hard", item1: "Stiel", audioPath1: "https://files.catbox.moe/rsr41a.mp3", item2: "ruhig", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[iː] & [ɪ]", kontrast: "lang - kurz" },
+    { liste: "hard", item1: "Straße", audioPath1: "https://files.catbox.moe/9mzfxd.mp3", item2: "Strecke", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Sucht", audioPath1: "https://files.catbox.moe/pm88u9.mp3", item2: "finden", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[uː] & [ʊ]", kontrast: "kurz - lang" },
+    { liste: "hard", item1: "Suppe", audioPath1: "https://files.catbox.moe/avfvli.mp3", item2: "ausgezeichnet", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[uː] & [ʊ]", kontrast: "kurz - lang" },
+    { liste: "hard", item1: "Tisch", audioPath1: "https://files.catbox.moe/4scmh7.mp3", item2: "Stuhl", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Tor", audioPath1: "https://files.catbox.moe/7txuo4.mp3", item2: "Kunst", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Tür", audioPath1: "https://files.catbox.moe/gtkgg7.mp3", item2: "Eingang", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Visum", audioPath1: "https://files.catbox.moe/7dtd15.mp3", item2: "Ausweis", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Vogel", audioPath1: "https://files.catbox.moe/uvsogw.mp3", item2: "Ursache", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[ɔː] & [ɔ]", kontrast: "lang - kurz" },
+    { liste: "hard", item1: "Wal", audioPath1: "https://files.catbox.moe/vhpsgc.mp3", item2: "Mauer", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[aː] & [a]", kontrast: "lang - kurz" },
+    { liste: "hard", item1: "Wald", audioPath1: "https://files.catbox.moe/45i268.mp3", item2: "Salz", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Sack", audioPath1: "https://files.catbox.moe/l51swz.mp3", item2: "erzählen", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[aː] & [a]", kontrast: "kurz - lang" },
+    { liste: "hard", item1: "Wasser", audioPath1: "https://files.catbox.moe/r878b7.mp3", item2: "Flüssigkeit", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "weck", audioPath1: "https://files.catbox.moe/5kzad0.mp3", item2: "Route", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[eː] & [ɛ]", kontrast: "kurz - lang" },
+    { liste: "hard", item1: "Wellen", audioPath1: "https://files.catbox.moe/ui3mlg.mp3", item2: "Schere", kategorie: "MWort-völlig unverwandt", isRelated: false, vokal: "[eː] & [ɛ]", kontrast: "" },
+    { liste: "hard", item1: "wieder", audioPath1: "https://files.catbox.moe/0la8x9.mp3", item2: "Insel", kategorie: "MWort-völlig unverwandt", isRelated: false, vokal: "[iː] & [ɪ]", kontrast: "" },
+    { liste: "hard", item1: "zehren", audioPath1: "https://files.catbox.moe/cmw3ya.mp3", item2: "reißen", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[eː] & [ɛ]", kontrast: "lang - kurz" },
+    { liste: "hard", item1: "Zuck", audioPath1: "https://files.catbox.moe/c0btcb.mp3", item2: "Ordner", kategorie: "MWort-völlig unverwandt", isRelated: false, vokal: "[uː] & [ʊ]", kontrast: "" }
+];
+    
+    let part2PracticePairsEasy = [
+    { liste: "easy", item1: "Brille", audioPath1: "https://files.catbox.moe/4bui3k.mp3", item2: "sehen", kategorie: "Übung", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "klein", audioPath1: "https://files.catbox.moe/ugitdb.mp3", item2: "winzig", kategorie: "Übung", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "Kugel", audioPath1: "https://files.catbox.moe/nlyf65.mp3", item2: "Brot", kategorie: "Übung", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "utawala", audioPath1: "https://files.catbox.moe/stt7lo.mp3", item2: "notieren", kategorie: "Übung", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "easy", item1: "uwekezaji", audioPath1: "https://files.catbox.moe/oitjw4.mp3", item2: "essen", kategorie: "Übung", isRelated: false, vokal: "", kontrast: "" }
+];
+
+let part2PracticePairsHard = [
+    { liste: "hard", item1: "Freude", audioPath1: "https://files.catbox.moe/g7f2mn.mp3", item2: "Glück", kategorie: "Übung", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "uimarishaji", audioPath1: "https://files.catbox.moe/0c7u5v.mp3", item2: "unterstützen", kategorie: "Übung", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "utawala", audioPath1: "https://files.catbox.moe/stt7lo.mp3", item2: "notieren", kategorie: "Übung", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "uwekezaji", audioPath1: "https://files.catbox.moe/oitjw4.mp3", item2: "essen", kategorie: "Übung", isRelated: false, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "wachsen", audioPath1: "https://files.catbox.moe/icgdaz.mp3", item2: "rasch", kategorie: "Übung", isRelated: true, vokal: "", kontrast: "" }
+];
+    
+    const writtenLevelDescriptions = [
+        "Ich kann einfache Sätze schreiben, z. B. eine Postkarte oder ein kurzes Formular ausfüllen.",
+        "Ich kann kurze Notizen oder einfache E-Mails schreiben, z. B. um etwas abzusagen oder zu fragen.",
+        "Ich kann zusammenhängende Texte über vertraute Dinge schreiben, z. B. Berichte oder einfache Argumente.",
+        "Ich kann klare, gut aufgebaute Texte zu vielen Themen schreiben und meine Meinung begründen.",
+        "Ich kann differenzierte Texte verfassen, passende Stilmittel verwenden und mich sprachlich sicher ausdrücken.",
+        "Ich kann anspruchsvolle Texte mühelos schreiben – auch stilistisch und argumentativ auf hohem Niveau."
+    ];
+    
+    const oralLevelDescriptions = [
+        "Ich kann einzelne Wörter und kurze Sätze zu vertrauten Themen sagen (z. B. mich vorstellen, etwas bestellen).",
+        "Ich kann mich in einfachen Alltagssituationen verständigen, auch wenn ich manchmal nach Worten suchen muss.",
+        "Ich kann an einfachen Gesprächen teilnehmen, meine Meinung sagen und Erfahrungen beschreiben.",
+        "Ich kann mich klar und recht flüssig ausdrücken, auch über abstraktere Themen wie Arbeit, Studium oder Interessen.",
+        "Ich spreche spontan, fast fehlerfrei und kann komplexe Inhalte strukturiert und differenziert darstellen.",
+        "Ich kann mich mühelos, stilistisch angemessen und präzise zu allen Themen äußern, auch in Diskussionen."
+    ];
+    
+    // Language level mapping
+    const cefr_levels = ["A1", "A2", "B1", "B2", "C1", "C2"];
+    
+    let part2PracticePairs;
+    let part2WordPairs;
+
+    let currentSection = 'welcome-section';
+    let currentPracticeIndex = 0;
+    let currentExperimentIndex = 0;
+    let currentPart2PracticeIndex = 0;
+    let currentPart2Index = 0;
+    let inExperiment = false;
+    let halbwortCorrect = 0;
+    let halbwortAttempts = 0;
+    let part1Results = [];
+    let part2PracticeResults = [];
+    let part2Results = [];
+    let participantData = {};
+    let countdownInterval = null;
+    let participantCode = "";
+
+    let stimulusStartTime = 0;
+    const audioPlayer = document.getElementById('audio-player');
+    let currentAudio = null;
+    let currentPart2Word = 1; 
+    let audioPlayed = false;
+    
+    // Variable to track if data has been submitted
+    let dataSubmitted = false;
+    
+    // Variable to track if volume has been checked
+    let volumeChecked = false;
+    
+    // Variable to track if reminder about data submission has been shown
+    let dataSubmissionReminderShown = false;
+    
+    // Volume monitoring interval ID
+    let volumeMonitorIntervalId = null;
+
+    function updateTopProgress(percentage) {
+    const clampedPercentage = Math.max(0, Math.min(100, percentage));
+    document.documentElement.style.setProperty('--progress-width', clampedPercentage);
+
+    const progressText = document.getElementById('progress-text');
+    if (progressText) {
+        progressText.textContent = Math.round(clampedPercentage) + '%';
+    }
+}
+
+    function shuffleArray(array) {
+        const newArray = [...array];
+
+        for (let i = newArray.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+        }
+
+        return newArray;
+    }
+
+    function initializeAndRandomizeStimuli() {
+        // Randomize all stimulus lists
+        practiceWords = shuffleArray([...practiceWords]);
+        deWords = shuffleArray([...deWords]);
+        cnWords = shuffleArray([...cnWords]);
+        part2WordPairsEasy = shuffleArray([...part2WordPairsEasy]);
+        part2WordPairsHard = shuffleArray([...part2WordPairsHard]);
+        part2PracticePairsEasy = shuffleArray([...part2PracticePairsEasy]);
+        part2PracticePairsHard = shuffleArray([...part2PracticePairsHard]);
+        
+        console.log("All stimuli successfully randomized");
+    }
+
+    function showSection(sectionId) {
+    console.log(`Attempting to show section: ${sectionId}`);
+    
+    // Hide all sections
+    document.querySelectorAll('.container > div').forEach(div => {
+        div.classList.add('hidden');
+    });
+    
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.classList.remove('hidden');
+        console.log(`Successfully showed section: ${sectionId}`);
+    } else {
+        console.error(`Section not found: ${sectionId}`);
+    }
+    
+    currentSection = sectionId;
+
+    if (sectionId === 'break-section') {
+        startCountdown();
+    }
+    if (sectionId === 'feedback-section' && !dataSubmissionReminderShown) {
+        setTimeout(() => {
+            showDataWarningModal();
+        }, 500);
+    }
+    let progress = 0;
+    if (sectionId === 'welcome-section') progress = 0;
+    else if (sectionId === 'instruction-section') progress = 5;
+    else if (sectionId === 'practice-section') progress = 10;
+    else if (sectionId === 'practice-end-section') progress = 15;
+    else if (sectionId === 'experiment-section') progress = 20 + (currentExperimentIndex / (part1Words.length || 1)) * 25;
+    else if (sectionId === 'break-section') progress = 45;
+    else if (sectionId === 'part2-instruction') progress = 50;
+    else if (sectionId === 'part2-practice-section') progress = 55;
+    else if (sectionId === 'part2-practice-end-section') progress = 60;
+    else if (sectionId === 'part2-section') progress = 65 + (currentPart2Index / (part2WordPairs?.length || 1)) * 20;
+    else if (sectionId === 'chinese-info-section') progress = 85;
+    else if (sectionId === 'feedback-section') progress = 90;
+    else if (sectionId === 'thank-you-section') progress = 100;
+    
+    updateTopProgress(progress);
+    
+    console.log(`Current section switched to: ${sectionId}`);
+}
+
+function showDataWarningModal() {
+    document.getElementById('data-warning-modal').classList.remove('hidden');
+    dataSubmissionReminderShown = true;
+}
+
+function hideDataWarningModal() {
+    document.getElementById('data-warning-modal').classList.add('hidden');
+}
+
+
+    function startCountdown() {
+        if (countdownInterval) {
+            clearInterval(countdownInterval);
+        }
+
+        let seconds = 5;
+        const countdownElement = document.getElementById('countdown');
+
+        if (!countdownElement) return;
+
+        countdownElement.textContent = seconds;
+
+        countdownInterval = setInterval(() => {
+            seconds--;
+            countdownElement.textContent = seconds;
+
+            if (seconds <= 0) {
+                clearInterval(countdownInterval);
+                countdownInterval = null;
+                showSection('part2-instruction');
+            }
+        }, 1000);
+    }
+
+    function showBlankPage() {
+        document.querySelectorAll('.container > div').forEach(div => {
+            div.classList.add('hidden');
+        });
+        document.getElementById('blank-page').classList.remove('hidden');
+    }
+    
+    function startVolumeMonitoring() {
+        if (volumeMonitorIntervalId) return; // Already monitoring
+        
+        volumeMonitorIntervalId = setInterval(checkAudioVolumeContinuous, 5000); // Check every 5 seconds
+        console.log("Volume monitoring started");
+    }
+
+    function stopVolumeMonitoring() {
+        if (volumeMonitorIntervalId) {
+            clearInterval(volumeMonitorIntervalId);
+            volumeMonitorIntervalId = null;
+            console.log("Volume monitoring stopped");
+        }
+    }
+
+    function checkAudioVolumeContinuous() {
+        if (document.hidden) return; 
+        
+        if (audioPlayer.muted) {
+            showVolumeAlert();
+            return false;
+        }
+        
+        if (audioPlayer.volume < 0.1) {
+            showVolumeAlert();
+            return false;
+        }
+        
+        return true;
+    }
+
+    function checkAudioVolume() {
+        if (volumeChecked) return true; 
+        
+        // Check system volume using the AudioContext API
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        if (audioContext.state === 'suspended') {
+            showVolumeAlert();
+            return false;
+        }
+        
+        if (audioPlayer.muted || audioPlayer.volume < 0.1) {
+            showVolumeAlert();
+            return false;
+        }
+        
+        audioPlayer.play()
+            .then(() => {
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0;
+                volumeChecked = true;
+            })
+            .catch(error => {
+                console.warn("Could not play audio automatically:", error);
+                showVolumeAlert();
+                return false;
+            });
+            
+        return true;
+    }
+    
+    function showVolumeAlert() {
+        document.getElementById('volume-alert').classList.remove('hidden');
+    }
+    function hideVolumeAlert() {
+        document.getElementById('volume-alert').classList.add('hidden');
+        volumeChecked = true;
+    }
+
+
+      // Preload audio files to ensure faster playback speeds
+      function preloadAudio(audioPath) {
+        if (!audioPath) return Promise.resolve();
+        
+        return new Promise((resolve, reject) => {
+            const audio = new Audio();
+            audio.preload = 'auto';
+            audio.oncanplaythrough = resolve;
+            audio.onerror = reject;
+            audio.src = audioPath;
+            setTimeout(() => {
+                resolve();
+            }, 5000);
+        });
+    }
+    
+    function preloadNextAudio() {
+        // Preload next audio for part 1 (if applicable)
+        if (currentSection.includes('practice-section') && currentPracticeIndex < practiceWords.length - 1) {
+            preloadAudio(practiceWords[currentPracticeIndex + 1].audioPath);
+        } else if (currentSection === 'experiment-section' && currentExperimentIndex < part1Words.length - 1) {
+            preloadAudio(part1Words[currentExperimentIndex + 1].audioPath);
+        }
+        
+        // Preload part 2 audio (if applicable)
+        else if (currentSection === 'part2-practice-section' && currentPart2PracticeIndex < part2PracticePairs.length - 1) {
+            preloadAudio(part2PracticePairs[currentPart2PracticeIndex + 1].audioPath1);
+        } else if (currentSection === 'part2-section' && currentPart2Index < part2WordPairs.length - 1) {
+            preloadAudio(part2WordPairs[currentPart2Index + 1].audioPath1);
+        }
+    }
+
+    function playAudio(audioPath, callback) {
+        // Check audio volume
+        if (!checkAudioVolumeContinuous()) {
+            console.warn("Volume check failed, waiting for user confirmation");
+            const volumeOkBtn = document.getElementById('volume-ok-btn');
+            const originalCallback = callback;
+            
+            // Wait for user to acknowledge volume alert before continuing
+            volumeOkBtn.onclick = function() {
+                hideVolumeAlert();
+                // Retry playing audio after user confirmation
+                playAudio(audioPath, originalCallback);
+            };
+            return;
+        }
+        
+        if (audioPlayer && !audioPlayer.paused) {
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0;
+        }
+        
+        console.log("Playing audio:", audioPath);
+        
+        // Set audio source
+        audioPlayer.src = audioPath;
+        
+        // Clear onended event first to avoid multiple bindings
+        audioPlayer.onended = null;
+        
+        // Then set onended event
+        audioPlayer.onended = function() {
+            console.log("Audio playback ended, triggering callback");
+            if (callback) callback();
+        };
+        
+        // Add timeout mechanism to prevent experiment from getting stuck if audio fails to load
+        const timeoutId = setTimeout(() => {
+            console.warn("Audio playback timeout - forcing continuation");
+            if (callback) callback(); // Call callback even if there's an error, to prevent experiment from getting stuck
+        }, 10000); // Give more time for external URLs
+        
+        // Clear any previous error handlers
+        audioPlayer.onerror = null;
+        
+        // Set audio loading error handling
+        audioPlayer.onerror = function(e) {
+            console.error("Audio playback error:", e);
+            clearTimeout(timeoutId);
+            alert(`Audio file loading error: ${audioPath}\nBitte versuchen Sie, die Seite zu aktualisieren oder kontaktieren Sie den Versuchsleiter.`);
+            if (callback) callback(); // Call callback even if there's an error, to prevent experiment from getting stuck
+        };
+        
+        // Try to play audio
+        audioPlayer.play()
+            .then(() => {
+                // Successfully playing, clear timeout
+                clearTimeout(timeoutId);
+            })
+            .catch(error => {
+                console.error("Audio playback error:", error);
+                clearTimeout(timeoutId);
+                alert(`Audio file playback error: ${audioPath}\nDies könnte durch Browser-Richtlinien verursacht werden. Bitte klicken Sie irgendwo auf die Seite und versuchen Sie es erneut.`);
+                if (callback) callback(); // Call callback even if there's an error, to prevent experiment from getting stuck
+            });
+    }
+
+
+    function presentAudioStimulus(element, item) {
+    // Make sure the correct section is visible
+    const sectionId = element.id;
+    if (sectionId && document.getElementById(sectionId).classList.contains('hidden')) {
+        document.querySelectorAll('.container > div').forEach(div => {
+            div.classList.add('hidden');
+        });
+        document.getElementById(sectionId).classList.remove('hidden');
+    }
+    
+    const fixation = element.querySelector('.fixation-cross');
+    const audioContainer = element.querySelector('.audio-container');
+    const prompt = element.querySelector('.prompt');
+    const soundWave = audioContainer.querySelector('.sound-wave');
+    
+    // Reset state
+    audioPlayed = false;
+    inExperiment = false;
+    
+    // Hide fixation cross immediately, show audio container
+    fixation.classList.add('hidden');
+    audioContainer.classList.remove('hidden');
+    prompt.classList.add('hidden');
+
+    console.log("Starting audio immediately");
+    
+    // Reset wave state
+    if (soundWave) {
+        soundWave.classList.remove('completed');
+    }
+    
+    console.log("Starting audio playback:", item.audioPath);
+    
+    if (!item.audioPath) {
+        console.error("Error: Audio source not found", item);
+        return;
+    }
+    
+    // Preload and play audio
+    preloadAudio(item.audioPath)
+        .catch(error => console.log("Preloading failed, will load during playback"))
+        .finally(() => {
+            playAudio(item.audioPath, function() {
+                // Audio playback complete
+                
+                // Show completed wave
+                if (soundWave) {
+                    soundWave.classList.add('completed');
+                }
+                
+                prompt.classList.remove('hidden');
+                inExperiment = true;
+                audioPlayed = true;
+                stimulusStartTime = performance.now();
+                
+                // Preload next audio
+                preloadNextAudio();
+            });
+        });
+}
+
+
+function presentAudioWordPair(element, wordPair) {
+    // Make sure the correct section is visible
+    const sectionId = element.id;
+    if (sectionId && document.getElementById(sectionId).classList.contains('hidden')) {
+        document.querySelectorAll('.container > div').forEach(div => {
+            div.classList.add('hidden');
+        });
+        document.getElementById(sectionId).classList.remove('hidden');
+    }
+    
+    const fixation = element.querySelector('.fixation-cross');
+    const part2Container = element.querySelector('.part2-container');
+    const prompt = element.querySelector('.prompt');
+    const soundWave = element.querySelector('.sound-wave');
+    let visualWordId = currentSection === 'part2-practice-section' ? 
+                    'part2-practice-visual-word' : 'part2-main-visual-word';
+    const visualWord = document.getElementById(visualWordId);
+    
+
+    audioPlayed = false;
+    currentPart2Word = 1;
+    inExperiment = false;
+    
+
+    // Hide fixation cross immediately, show part2Container
+    fixation.classList.add('hidden');
+    part2Container.classList.remove('hidden');
+    prompt.classList.add('hidden');
+
+    console.log("Starting part 2 trial immediately");
+    
+    // Reset wave state
+    if (soundWave) {
+        soundWave.classList.remove('completed');
+    }
+    
+
+    if (visualWord) {
+        visualWord.textContent = "";
+    }
+    
+    console.log("Auto-playing first word audio:", wordPair.audioPath1);
+    
+    if (!wordPair.audioPath1) {
+        console.error("Error: Audio source not found", wordPair);
+        return;
+    }
+
+    preloadAudio(wordPair.audioPath1)
+        .catch(error => console.log("Preloading failed, will load during playback"))
+        .finally(() => {
+            playAudio(wordPair.audioPath1, function() {
+                // First word playback complete - show completed wave
+                if (soundWave) {
+                    soundWave.classList.add('completed');
+                }
+                
+                // After audio completes, brief delay, then show second word
+                setTimeout(() => {
+                    if (visualWord) {
+                        visualWord.textContent = wordPair.item2;
+                        console.log("Second word set:", wordPair.item2);
+                    } else {
+                        console.error("Error: Visual word element not found:", visualWordId);
+                        alert("Fehler: Visuelles Wortelement nicht gefunden. Bitte informieren Sie den Versuchsleiter.");
+                    }
+                    
+                    // Show prompt, start timing
+                    prompt.classList.remove('hidden');
+                    inExperiment = true;
+                    audioPlayed = true;
+                    stimulusStartTime = performance.now();
+                    
+                    // Preload next stimulus
+                    preloadNextAudio();
+                }, 500); 
+            });
+        });
+}
+  
+
+    // Part 1 experiment functions
+    function startPractice() {
+
+        if (!volumeChecked) {
+            showVolumeAlert();
+            const volumeOkBtn = document.getElementById('volume-ok-btn');
+            volumeOkBtn.onclick = function() {
+                hideVolumeAlert();
+                startPracticeAfterVolumeCheck();
+            };
+        } else {
+            startPracticeAfterVolumeCheck();
+        }
+    }
+    
+    function startPracticeAfterVolumeCheck() {
+        practiceWords = shuffleArray([...practiceWords]);
+
+        showSection('practice-section');
+        currentPracticeIndex = 0;
+
+        presentAudioStimulus(
+            document.getElementById('practice-section'),
+            practiceWords[currentPracticeIndex]
+        );
+
+        document.addEventListener('keydown', practiceKeyHandler);
+    }
+
+    function practiceKeyHandler(e) {
+        if (!inExperiment || !audioPlayed) return;
+
+        if (e.code === 'KeyQ' || e.code === 'KeyP') {
+            inExperiment = false;
+            const responseTime = performance.now() - stimulusStartTime;
+
+            const response = e.code === 'KeyQ';
+            const currentWord = practiceWords[currentPracticeIndex];
+            
+            console.log("Practice response:", response ? "Yes" : "No", "Response time:", Math.round(responseTime), "ms");
+
+            currentPracticeIndex++;
+
+            showBlankPage(); 
+
+            if (currentPracticeIndex < practiceWords.length) {
+                setTimeout(() => {
+                    showSection('practice-section');
+                    presentAudioStimulus(
+                        document.getElementById('practice-section'),
+                        practiceWords[currentPracticeIndex]
+                    );
+                }, 1000); // inter-trial interval
+            } else {
+                document.removeEventListener('keydown', practiceKeyHandler);
+                setTimeout(() => {
+                    showSection('practice-end-section');
+                }, 1000);
+            }
+        }
+    }
+
+    function startExperiment() {
+        part1Words = shuffleArray([...part1Words]);
+
+        showSection('experiment-section');
+        currentExperimentIndex = 0;
+        halbwortAttempts = 0;
+        halbwortCorrect = 0;
+        part1Results = [];
+
+        presentAudioStimulus(
+            document.getElementById('experiment-section'),
+            part1Words[currentExperimentIndex]
+        );
+
+        document.addEventListener('keydown', experimentKeyHandler);
+    }
+
+    function experimentKeyHandler(e) {
+        if (!inExperiment || !audioPlayed) return;
+
+        if (e.code === 'KeyQ' || e.code === 'KeyP') {
+            inExperiment = false;
+            const responseTime = performance.now() - stimulusStartTime;
+
+            const currentWord = part1Words[currentExperimentIndex];
+            const response = e.code === 'KeyQ';
+            const isCorrect = response === currentWord.isRealWord;
+
+            
+            part1Results.push({
+                word: currentWord.item,         
+                kategorie: currentWord.kategorie, 
+                liste: currentWord.liste,
+                isRealWord: currentWord.isRealWord,
+                response: response,
+                isCorrect: isCorrect,
+                responseTime: responseTime
+            });
+
+            if (currentWord.kategorie === "Halbwort") {
+                halbwortAttempts++;
+                if (isCorrect) halbwortCorrect++;
+            }
+
+            currentExperimentIndex++;
+
+            showBlankPage(); 
+
+            if (currentExperimentIndex < part1Words.length) {
+                setTimeout(() => {
+                    showSection('experiment-section');
+                    presentAudioStimulus(
+                        document.getElementById('experiment-section'),
+                        part1Words[currentExperimentIndex]
+                    );
+                }, 1000); //  inter-trial interval
+            } else {
+                document.removeEventListener('keydown', experimentKeyHandler);
+                setTimeout(() => {
+                    finishPart1();
+                }, 1000);
+            }
+        }
+    }
+
+    function finishPart1() {
+    const halbwortResults = part1Results.filter(result => result.kategorie === "Halbwort");
+    const accuracy = halbwortResults.length > 0 ? 
+        halbwortResults.filter(r => r.isCorrect).length / halbwortResults.length : 0;
+    const avgReactionTime = halbwortResults.length > 0 ? 
+        halbwortResults.reduce((sum, r) => sum + r.responseTime, 0) / halbwortResults.length : 0;
+    
+    console.log(`Halbwort judgment accuracy: ${accuracy.toFixed(4)} (${(accuracy * 100).toFixed(2)}%)`);
+    console.log(`Halbwort average reaction time: ${avgReactionTime.toFixed(2)} ms`);
+    
+    if (accuracy >= 0.2647 && avgReactionTime <= 552.25) {
+        console.log("Choosing hard difficulty - meets both accuracy and RT criteria");
+        part2WordPairs = shuffleArray([...part2WordPairsHard]);
+        part2PracticePairs = shuffleArray([...part2PracticePairsHard]);
+    } else {
+        console.log(`Choosing easy difficulty - accuracy: ${(accuracy * 100).toFixed(2)}%, RT: ${avgReactionTime.toFixed(2)}ms`);
+        part2WordPairs = shuffleArray([...part2WordPairsEasy]);
+        part2PracticePairs = shuffleArray([...part2PracticePairsEasy]);
+    }
+    showSection('break-section');
+}
+
+    // Part 2 experiment functions
+    function startPart2Practice() {
+    if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+    }
+
+
+    if (!part2PracticePairs || part2PracticePairs.length === 0) {
+        console.error("part2PracticePairs not initialized!");
+        alert("Übungsdaten wurden nicht korrekt geladen. Bitte aktualisieren Sie die Seite und versuchen Sie es erneut.");
+        return;
+    }
+
+    part2PracticePairs = shuffleArray([...part2PracticePairs]);
+
+    showSection('part2-practice-section');
+    currentPart2PracticeIndex = 0;
+    part2PracticeResults = [];
+
+    console.log("Starting Part 2 practice with", part2PracticePairs.length, "items");
+    console.log("First practice item:", part2PracticePairs[currentPart2PracticeIndex]);
+
+    presentAudioWordPair(
+        document.getElementById('part2-practice-section'),
+        part2PracticePairs[currentPart2PracticeIndex]
+    );
+
+    document.addEventListener('keydown', part2PracticeKeyHandler);
+}
+
+
+
+    function part2PracticeKeyHandler(e) {
+        if (!inExperiment || !audioPlayed) return;
+
+        if (e.code === 'KeyQ' || e.code === 'KeyP') {
+            inExperiment = false;
+            const responseTime = performance.now() - stimulusStartTime;
+
+            const response = e.code === 'KeyQ';
+            const currentPair = part2PracticePairs[currentPart2PracticeIndex];
+            const isCorrect = response === currentPair.isRelated;
+            
+            console.log("Practice response:", response ? "Yes" : "No", "Correct:", isCorrect, "Response time:", Math.round(responseTime), "ms");
+
+            part2PracticeResults.push({
+               item1: currentPair.item1,
+                item2: currentPair.item2,
+                liste: currentPair.liste,
+                isRelated: currentPair.isRelated,
+                response: response,
+                isCorrect: isCorrect,
+                responseTime: responseTime
+            });
+
+            currentPart2PracticeIndex++;
+
+            showBlankPage(); 
+
+            if (currentPart2PracticeIndex < part2PracticePairs.length) {
+                setTimeout(() => {
+                    showSection('part2-practice-section');
+                    presentAudioWordPair(
+                        document.getElementById('part2-practice-section'),
+                        part2PracticePairs[currentPart2PracticeIndex]
+                    );
+                }, 1000); //  inter-trial interval
+            } else {
+                document.removeEventListener('keydown', part2PracticeKeyHandler);
+                setTimeout(() => {
+                    showSection('part2-practice-end-section');
+                }, 1000);
+            }
+        }
+    }
+
+    function startPart2() {
+        part2WordPairs = shuffleArray([...part2WordPairs]);
+
+        showSection('part2-section');
+        currentPart2Index = 0;
+        part2Results = [];
+
+        presentAudioWordPair(
+            document.getElementById('part2-section'),
+            part2WordPairs[currentPart2Index]
+        );
+
+        document.addEventListener('keydown', part2KeyHandler);
+    }
+
+    function part2KeyHandler(e) {
+        if (!inExperiment || !audioPlayed) return;
+
+        if (e.code === 'KeyQ' || e.code === 'KeyP') {
+            inExperiment = false;
+            const responseTime = performance.now() - stimulusStartTime;
+
+            const response = e.code === 'KeyQ';
+            const currentPair = part2WordPairs[currentPart2Index];
+            const isCorrect = response === currentPair.isRelated;
+
+            part2Results.push({
+                item1: currentPair.item1,
+                item2: currentPair.item2,
+                liste: currentPair.liste,
+                isRelated: currentPair.isRelated,
+                response: response,
+                isCorrect: isCorrect,
+                kategorie: currentPair.kategorie,
+                responseTime: responseTime
+            });
+
+            currentPart2Index++;
+
+            showBlankPage(); 
+
+            if (currentPart2Index < part2WordPairs.length) {
+                setTimeout(() => {
+                    showSection('part2-section');
+                    presentAudioWordPair(
+                        document.getElementById('part2-section'),
+                        part2WordPairs[currentPart2Index]
+                    );
+                }, 1000); //  inter-trial interval
+            } else {
+                document.removeEventListener('keydown', part2KeyHandler);
+                setTimeout(() => {
+                    finishExperiment();
+                }, 1000);
+            }
+        }
+    }
+
+
+    // Experiment completion and data handling functions
+    function generateRandomCode() {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let result = '';
+        for (let i = 0; i < 6; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return result;
+    }
+
+    function finishExperiment() {
+    console.log("finishExperiment called");
+    participantCode = generateRandomCode();
+    document.getElementById('participant-code').textContent = participantCode;
+
+    const nativeLanguage = participantData.nativeLanguage;
+    console.log("Native language:", nativeLanguage);
+
+    if (nativeLanguage === 'chinese') {
+        console.log("Redirecting to chinese-info-section");
+        showSection('chinese-info-section');
+    } else {
+        console.log("Redirecting to feedback-section for German speakers");
+        // German speakers also need to fill feedback form first, then submit data
+        showSection('feedback-section');
+    }
+}
+
+
+    function validateBasicInfo() {
+        const gender = document.getElementById('gender').value;
+        const nativeLanguage = document.getElementById('native-language').value;
+
+        if (!gender || !nativeLanguage) {
+            alert('Bitte füllen Sie alle erforderlichen Felder aus.');
+            return false;
+        }
+
+        return true;
+    }
+    
+    function validateChineseInfo() {
+        const requiredFields = [
+            document.getElementById('learning-years'),
+            document.getElementById('hours-per-week'),
+            document.getElementById('lived-german')
+        ];
+
+        const allFilled = requiredFields.every(function(field) {
+            if (!field.value) {
+                field.style.borderColor = '#e74c3c';
+                return false;
+            }
+            field.style.borderColor = '#ddd';
+            return true;
+        });
+
+        if (!allFilled) {
+            alert('Bitte füllen Sie alle erforderlichen Felder aus.');
+            return false;
+        }
+
+        const livedGerman = document.getElementById('lived-german').value;
+        if (livedGerman === 'yes') {
+            const livedMonths = document.getElementById('lived-months');
+            if (!livedMonths.value) {
+                livedMonths.style.borderColor = '#e74c3c';
+                alert('Bitte geben Sie an, wie lange Sie in einem deutschsprachigen Land gelebt haben.');
+                return false;
+            }
+            livedMonths.style.borderColor = '#ddd';
+        }
+
+        const writtenGerman = document.getElementById('written-german');
+        const oralGerman = document.getElementById('oral-german');
+        if (!writtenGerman.value || !oralGerman.value) {
+            alert('Bitte bewerten Sie Ihre Deutschkenntnisse mit den Schiebereglern.');
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+function validateFeedback() {
+    const requiredFields = [];
+    let isValid = true;
+    
+    const audioIssues = document.querySelectorAll('input[name="audio-issues"]:checked');
+    if (audioIssues.length === 0) {
+        alert('Bitte wählen Sie mindestens eine Option bei der Audioqualität aus.');
+        isValid = false;
+    }
+
+    const taskClarity = document.getElementById('task-clarity');
+    if (!taskClarity.value) {
+        taskClarity.style.borderColor = '#e74c3c';
+        alert('Bitte bewerten Sie die Verständlichkeit der Aufgabenstellungen.');
+        isValid = false;
+    } else {
+        taskClarity.style.borderColor = '#ddd';
+    }
+
+    const experimentDuration = document.getElementById('experiment-duration');
+    if (!experimentDuration.value) {
+        experimentDuration.style.borderColor = '#e74c3c';
+        alert('Bitte bewerten Sie die Gesamtdauer des Experiments.');
+        isValid = false;
+    } else {
+        experimentDuration.style.borderColor = '#ddd';
+    }
+    
+    return isValid;
+}
+
+    // Modified beforeunload event handler to prevent accidental page closure
+    window.addEventListener('beforeunload', function(e) {
+        if (!dataSubmitted) {
+            // Standard message for different browsers
+            const message = 'Bitte klicken Sie auf "Daten absenden und Experiment beenden" bevor Sie die Seite verlassen.';
+            e.returnValue = message;  // Standard for most browsers
+            return message;  // For older browsers
+        }
+    });
+
+    function downloadData() {
+        const statusElement = document.getElementById('submit-status') || document.getElementById('final-submit-status');
+        if (statusElement) {
+            statusElement.classList.remove('hidden', 'success', 'error');
+            statusElement.classList.add('pending');
+            statusElement.textContent = "Daten werden verarbeitet und gesendet...";
+        }
+        
+        let csvContent = "data:text/csv;charset=utf-8,";
+
+        csvContent += "Teilnehmerinformationen\n";
+        csvContent += `Teilnehmercode,${participantCode}\n`;
+        csvContent += `Geschlecht,${participantData.gender}\n`;
+        csvContent += `Muttersprache,${participantData.nativeLanguage}\n`;
+
+        if (participantData.nativeLanguage === 'chinese') {
+            csvContent += `Lernzeit (Jahre),${participantData.learningYears || 'Nicht angegeben'}\n`;
+            csvContent += `Stunden pro Woche,${participantData.hoursPerWeek || 'Nicht angegeben'}\n`;
+            csvContent += `In deutschsprachigem Land gelebt,${participantData.livedGerman || 'Nicht angegeben'}\n`;
+
+            if (participantData.livedGerman === 'yes') {
+                csvContent += `Aufenthaltsdauer (Monate),${participantData.livedMonths || 'Nicht angegeben'}\n`;
+            }
+
+            csvContent += `Schriftliche Deutschfähigkeiten (GER A1-C2),${participantData.writtenGerman || 'Nicht angegeben'}\n`;
+            csvContent += `Mündliche Deutschfähigkeiten (GER A1-C2),${participantData.oralGerman || 'Nicht angegeben'}\n`;
+        }
+
+        csvContent += "\nTeil 1 Ergebnisse\n";
+        csvContent += "Wort,Kategorie,Liste,IstEchtesWort,Antwort,Korrekt,ReaktionsZeit(ms)\n";
+
+        part1Results.forEach(result => {
+            csvContent += `${result.word},${result.kategorie},${result.liste},${result.isRealWord},${result.response},${result.isCorrect},${Math.round(result.responseTime)}\n`;
+        });
+
+        csvContent += "\nTeil 2 Ergebnisse\n";
+        csvContent += "Wort1,Wort2,Liste,IstVerwandt,Antwort,Korrekt,Kategorie,ReaktionsZeit(ms)\n";
+
+        part2Results.forEach(result => {
+            csvContent += `${result.item1},${result.item2},${result.liste},${result.isRelated},${result.response},${result.isCorrect},${result.kategorie},${Math.round(result.responseTime)}\n`;
+        });
+
+        // Send data to server and mark as successfully sent
+        sendDataToServer()
+            .then(() => {
+                dataSubmitted = true;  // Mark data as sent
+                
+                if (statusElement) {
+                    statusElement.classList.remove('pending', 'error');
+                    statusElement.classList.add('success');
+                    statusElement.textContent = "Daten erfolgreich gesendet!";
+                }
+                
+                try {
+                    const link = document.createElement("a");
+                    link.setAttribute("href", encodeURI(csvContent));
+                    link.setAttribute("download", `experiment_results_${participantCode}.csv`);
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    console.log("CSV file successfully downloaded");
+                    alert("Vielen Dank! Die Daten wurden erfolgreich gesendet und heruntergeladen. Sie können das Fenster jetzt schließen.");
+                } catch (error) {
+                    console.error("Error downloading CSV file:", error);
+                    alert("Das lokale Speichern ist fehlgeschlagen, aber die Daten wurden erfolgreich an den Server übermittelt. Sie können dieses Fenster jetzt schließen.");
+                }
+            })
+            .catch(error => {
+                console.error("Error sending data:", error);
+                
+                if (statusElement) {
+                    statusElement.classList.remove('pending', 'success');
+                    statusElement.classList.add('error');
+                    statusElement.textContent = "Fehler beim Senden der Daten. Bitte versuchen Sie es erneut.";
+                }
+                
+                alert("Fehler beim Senden der Daten. Bitte versuchen Sie es erneut.");
+            });
+    }
+
+    function sendDataToServer() {
+        return new Promise((resolve, reject) => {
+            try {
+                // Create summary of key data
+                const summary = {
+                    code: participantCode,
+                    gender: participantData.gender,
+                    language: participantData.nativeLanguage,
+                    date: new Date().toISOString().split('T')[0]
+                };
+                
+                // Additional info for Chinese-speaking participants
+                if (participantData.nativeLanguage === 'chinese') {
+                    summary.learning_years = participantData.learningYears;
+                    summary.hours_per_week = participantData.hoursPerWeek;
+                    summary.lived_in_german = participantData.livedGerman;
+                    if (participantData.livedGerman === 'yes') {
+                        summary.lived_months = participantData.livedMonths;
+                    }
+                    summary.written_level = participantData.writtenGerman;
+                    summary.oral_level = participantData.oralGerman;
+                }
+
+                summary.feedback = {
+                audio_issues: participantData.audioIssues,
+                task_clarity: participantData.taskClarity,
+                experiment_duration: participantData.experimentDuration,
+                additional_comments: participantData.additionalComments
+            };
+                
+                // Statistics on results
+                summary.part1_stats = {
+                    trials: part1Results.length,
+                    correct: part1Results.filter(r => r.isCorrect).length,
+                    accuracy: part1Results.length > 0 ? 
+                        (part1Results.filter(r => r.isCorrect).length / part1Results.length).toFixed(2) : "0.00",
+                    avg_response_time: part1Results.length > 0 ? 
+                        Math.round(part1Results.reduce((sum, r) => sum + r.responseTime, 0) / part1Results.length) : 0
+                };
+                
+                summary.part2_stats = {
+                    trials: part2Results.length,
+                    correct: part2Results.filter(r => r.isCorrect).length,
+                    accuracy: part2Results.length > 0 ? 
+                        (part2Results.filter(r => r.isCorrect).length / part2Results.length).toFixed(2) : "0.00",
+                    avg_response_time: part2Results.length > 0 ? 
+                        Math.round(part2Results.reduce((sum, r) => sum + r.responseTime, 0) / part2Results.length) : 0
+                };
+                
+                // Formatted detailed results as text
+                let detailedText = `Teilnehmer: ${participantCode}\n`;
+                detailedText += `Datum: ${new Date().toLocaleString()}\n`;
+                detailedText += `Geschlecht: ${participantData.gender}\n`;
+                detailedText += `Muttersprache: ${participantData.nativeLanguage}\n\n`;
+                
+                if (participantData.nativeLanguage === 'chinese') {
+                    detailedText += `Lernzeit (Jahre): ${participantData.learningYears || 'k.A.'}\n`;
+                    detailedText += `Stunden pro Woche: ${participantData.hoursPerWeek || 'k.A.'}\n`;
+                    detailedText += `In deutschsprachigem Land gelebt: ${participantData.livedGerman || 'k.A.'}\n`;
+                    
+                    if (participantData.livedGerman === 'yes') {
+                        detailedText += `Aufenthaltsdauer (Monate): ${participantData.livedMonths || 'k.A.'}\n`;
+                    }
+                    
+                    detailedText += `Schriftliche Deutschfähigkeiten: ${
+                        participantData.writtenGerman ? cefr_levels[parseInt(participantData.writtenGerman) - 1] : 'k.A.'
+                    }\n`;
+                    detailedText += `Mündliche Deutschfähigkeiten: ${
+                        participantData.oralGerman ? cefr_levels[parseInt(participantData.oralGerman) - 1] : 'k.A.'
+                    }\n\n`;
+                }
+
+                detailedText += "=== FEEDBACK ===\n";
+            const audioIssues = participantData.audioIssues && participantData.audioIssues.length > 0
+                ? participantData.audioIssues.join(', ')
+                : 'k.A.';
+            detailedText += `Audio-Probleme: ${audioIssues}\n`;
+            detailedText += `Aufgaben-Verständlichkeit: ${participantData.taskClarity || 'k.A.'}\n`;
+            detailedText += `Experimentdauer: ${participantData.experimentDuration || 'k.A.'}\n`;
+            detailedText += `Kommentare: ${participantData.additionalComments || 'Keine'}\n\n`;
+                
+                // Part 1 results
+                detailedText += "=== TEIL 1 ERGEBNISSE ===\n";
+                detailedText += `Insgesamt: ${part1Results.length} Versuche, ${
+                    part1Results.filter(r => r.isCorrect).length
+                } korrekt (${
+                    part1Results.length > 0 ? 
+                    ((part1Results.filter(r => r.isCorrect).length / part1Results.length) * 100).toFixed(1) : 0
+                }%)\n\n`;
+                
+                part1Results.forEach((result, index) => {
+                    detailedText += `${index+1}. Wort: ${result.word} | `;
+                    detailedText += `Kategorie: ${result.kategorie} | `;
+                    detailedText += `IstEchtesWort: ${result.isRealWord ? 'Ja' : 'Nein'} | `;
+                    detailedText += `Antwort: ${result.response ? 'Ja' : 'Nein'} | `;
+                    detailedText += `Korrekt: ${result.isCorrect ? 'Ja' : 'Nein'} | `;
+                    detailedText += `Reaktionszeit: ${Math.round(result.responseTime)}ms\n`;
+                });
+                // Part 2 results
+                detailedText += "\n=== TEIL 2 ERGEBNISSE ===\n";
+                detailedText += `Insgesamt: ${part2Results.length} Versuche, ${
+                    part2Results.filter(r => r.isCorrect).length
+                } korrekt (${
+                    part2Results.length > 0 ? 
+                    ((part2Results.filter(r => r.isCorrect).length / part2Results.length) * 100).toFixed(1) : 0
+                }%)\n\n`;
+                
+                part2Results.forEach((result, index) => {
+                    detailedText += `${index+1}. Wort1: ${result.item1} | `;
+                    detailedText += `Wort2: ${result.item2} | `;
+                    detailedText += `Verwandt: ${result.isRelated ? 'Ja' : 'Nein'} | `;
+                    detailedText += `Antwort: ${result.response ? 'Ja' : 'Nein'} | `;
+                    detailedText += `Korrekt: ${result.isCorrect ? 'Ja' : 'Nein'} | `;
+                    detailedText += `Kategorie: ${result.kategorie} | `;
+                    detailedText += `Reaktionszeit: ${Math.round(result.responseTime)}ms\n`;
+                });
+                
+                // Send data to Formspree
+                fetch("https://formspree.io/f/xqaqngoq", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        _replyto: `experiment-${participantCode}@results.de`,
+                        _subject: `Experiment Ergebnisse: Teilnehmer ${participantCode}`,
+                        summary: summary,
+                        details: detailedText
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log("Data successfully sent to server");
+                        resolve();  // Successfully completed
+                    } else {
+                        console.error("Error sending data:", response.status);
+                        reject(new Error(`Server responded with status ${response.status}`));
+                    }
+                })
+                .catch(error => {
+                    console.error("Error sending:", error);
+                    reject(error);
+                });
+            } catch (error) {
+                console.error("Error in data transfer:", error);
+                reject(error);
+            }
+        });
+    }
+
+    function updateSliderLabel(slider, detailedLabel, descriptions) {
+        const value = parseInt(slider.value);
+        detailedLabel.textContent = descriptions[value - 1];
+    }
+
+    function setupSliders() {
+        const writtenSlider = document.getElementById('written-slider');
+        const writtenValue = document.getElementById('written-value');
+        const writtenInput = document.getElementById('written-german');
+        const writtenDetailedLabel = document.getElementById('written-detailed-label');
+
+        const oralSlider = document.getElementById('oral-slider');
+        const oralValue = document.getElementById('oral-value');
+        const oralInput = document.getElementById('oral-german');
+        const oralDetailedLabel = document.getElementById('oral-detailed-label');
+
+        if (writtenSlider && writtenValue && writtenInput && writtenDetailedLabel) {
+            writtenSlider.addEventListener('input', function() {
+                const levelIndex = parseInt(this.value) - 1;
+                writtenValue.textContent = cefr_levels[levelIndex];
+                writtenInput.value = this.value;
+                updateSliderLabel(this, writtenDetailedLabel, writtenLevelDescriptions);
+            });
+            // Set initial values
+            const initialLevel = parseInt(writtenSlider.value) - 1;
+            writtenValue.textContent = cefr_levels[initialLevel];
+            updateSliderLabel(writtenSlider, writtenDetailedLabel, writtenLevelDescriptions);
+        }
+
+        if (oralSlider && oralValue && oralInput && oralDetailedLabel) {
+            oralSlider.addEventListener('input', function() {
+                const levelIndex = parseInt(this.value) - 1;
+                oralValue.textContent = cefr_levels[levelIndex];
+                oralInput.value = this.value;
+                updateSliderLabel(this, oralDetailedLabel, oralLevelDescriptions);
+            });
+            // Set initial values
+            const initialLevel = parseInt(oralSlider.value) - 1;
+            oralValue.textContent = cefr_levels[initialLevel];
+            updateSliderLabel(oralSlider, oralDetailedLabel, oralLevelDescriptions);
+        }
+    }
+
+    function updateLivedMonthsVisibility() {
+        const livedGerman = document.getElementById('lived-german').value;
+        const livedMonthsGroup = document.getElementById('lived-months-group');
+
+        if (livedGerman === 'yes') {
+            livedMonthsGroup.style.display = 'block';
+            document.getElementById('lived-months').setAttribute('required', 'required');
+        } else {
+            livedMonthsGroup.style.display = 'none';
+            document.getElementById('lived-months').removeAttribute('required');
+        }
+    }
+
+    // Resume experiment after volume adjustment
+    function resumeExperiment() {
+        console.log("Resuming experiment after volume adjustment");
+        
+        // Determine what to resume based on current section
+        if (currentSection === 'practice-section' && currentPracticeIndex < practiceWords.length) {
+            presentAudioStimulus(
+                document.getElementById('practice-section'),
+                practiceWords[currentPracticeIndex]
+            );
+        } else if (currentSection === 'experiment-section' && currentExperimentIndex < part1Words.length) {
+            presentAudioStimulus(
+                document.getElementById('experiment-section'),
+                part1Words[currentExperimentIndex]
+            );
+        } else if (currentSection === 'part2-practice-section' && currentPart2PracticeIndex < part2PracticePairs.length) {
+            presentAudioWordPair(
+                document.getElementById('part2-practice-section'),
+                part2PracticePairs[currentPart2PracticeIndex]
+            );
+        } else if (currentSection === 'part2-section' && currentPart2Index < part2WordPairs.length) {
+            presentAudioWordPair(
+                document.getElementById('part2-section'),
+                part2WordPairs[currentPart2Index]
+            );
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("Experiment initialization...");
+        
+        const style = document.createElement('style');
+        style.textContent = `
+            .fixation-cross {
+                font-size: 60px;
+                text-align: center;
+                color: var(--dark-color);
+                margin: 30px 0;
+                position: relative;
+                z-index: 10;
+            }
+            
+            #blank-page .fixation-cross {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+            
+            .audio-container, .visual-container {
+                z-index: 5;
+                position: relative;
+            }
+            
+            /* Hide play button since we're using autoplay */
+            .play-button {
+                display: none !important;
+            }
+            
+            /* Adjust audio status text styles */
+            .audio-status {
+                margin: 20px 0;
+                font-size: 18px;
+                min-height: 27px;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        initializeAndRandomizeStimuli();
+        setupSliders();
+        updateLivedMonthsVisibility();
+        showSection('welcome-section');
+        
+
+        startVolumeMonitoring();
+
+
+        document.getElementById('volume-ok-btn').addEventListener('click', function() {
+            hideVolumeAlert();
+            // Resume experiment if it was paused
+            if (currentSection && !inExperiment) {
+                resumeExperiment();
+            }
+        });
+
+        document.getElementById('startBtn').addEventListener('click', () => {
+            if (validateBasicInfo()) {
+                participantData = {
+                    gender: document.getElementById('gender').value,
+                    nativeLanguage: document.getElementById('native-language').value
+                };
+
+                // Important: Set part1Words based on native language
+                if (participantData.nativeLanguage === 'german') {
+                    part1Words = shuffleArray([...deWords]);
+                } else if (participantData.nativeLanguage === 'chinese') {
+                    part1Words = shuffleArray([...cnWords]);
+                }
+
+                showSection('instruction-section');
+            }
+        });
+
+        document.getElementById('instructionNextBtn').addEventListener('click', () => {
+            startPractice();
+        });
+
+        document.getElementById('startMainBtn').addEventListener('click', () => {
+            startExperiment();
+        });
+
+        document.getElementById('continueBtn').addEventListener('click', () => {
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+                countdownInterval = null;
+            }
+            showSection('part2-instruction');
+        });
+
+        document.getElementById('part2InstructionNextBtn').addEventListener('click', () => {
+            startPart2Practice();
+        });
+
+        document.getElementById('startPart2MainBtn').addEventListener('click', () => {
+            startPart2();
+        });
+
+        document.getElementById('lived-german').addEventListener('change', updateLivedMonthsVisibility);
+
+        document.getElementById('chineseInfoNextBtn').addEventListener('click', () => {
+        if (validateChineseInfo()) {
+            participantData.learningYears = document.getElementById('learning-years').value;
+            participantData.hoursPerWeek = document.getElementById('hours-per-week').value;
+            participantData.livedGerman = document.getElementById('lived-german').value;
+            participantData.livedMonths = document.getElementById('lived-months').value;
+            participantData.writtenGerman = document.getElementById('written-german').value;
+            participantData.oralGerman = document.getElementById('oral-german').value;
+
+            showSection('feedback-section');  
+        }
+    });
+      
+        document.getElementById('feedbackSubmitBtn').addEventListener('click', () => {
+        if (validateFeedback()) {
+        
+            const audioIssuesCheckboxes = document.querySelectorAll('input[name="audio-issues"]:checked');
+            participantData.audioIssues = Array.from(audioIssuesCheckboxes).map(cb => cb.value);
+            
+            participantData.taskClarity = document.getElementById('task-clarity').value;
+            participantData.experimentDuration = document.getElementById('experiment-duration').value;
+            participantData.additionalComments = document.getElementById('additional-comments').value;
+
+            downloadData();
+            showSection('thank-you-section');
+        }
+    });
+
+    document.getElementById('data-warning-ok-btn').addEventListener('click', function() {
+        hideDataWarningModal();
+    });
+        
+
+        audioPlayer.addEventListener('error', function(e) {
+            console.error('Audio error:', e);
+            alert('Es gab ein Problem beim Abspielen der Audiodatei. Bitte versuchen Sie es erneut oder informieren Sie den Versuchsleiter.');
+            
+            // Reset experiment state to avoid getting stuck
+            inExperiment = false;
+            
+            const currentAudioStatus = document.querySelector(`#${currentSection} .audio-status`);
+            if (currentAudioStatus) {
+                currentAudioStatus.textContent = "Fehler beim Abspielen. Bitte erneut versuchen.";
+            }
+        });
+        
+        window.addEventListener('beforeunload', function() {
+            // Stop volume monitoring
+            stopVolumeMonitoring();
+            
+            // Stop audio player if running
+            if (audioPlayer && !audioPlayer.paused) {
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0;
+            }
+        });
+        
+ 
+        document.addEventListener('keydown', function(e) {
+            if (e.code === 'KeyD' && e.ctrlKey && e.shiftKey) {
+                console.log("=== Current Experiment State ===");
+                console.log("Current section:", currentSection);
+                console.log("Part 1 progress:", currentExperimentIndex, "/", part1Words.length);
+                console.log("Part 2 progress:", currentPart2Index, "/", part2WordPairs ? part2WordPairs.length : 0);
+                console.log("Experiment state:", inExperiment ? "active" : "inactive");
+                console.log("Audio played:", audioPlayed);
+                console.log("Halbwort accuracy:", halbwortAttempts > 0 ? (halbwortCorrect / halbwortAttempts).toFixed(2) : "no data");
+                console.log("Part 1 results count:", part1Results.length);
+                console.log("Part 2 results count:", part2Results.length);
+            }
+        });
+    });
+
+// === Simple keyboard navigation system ===
+document.addEventListener('keydown', function(e) {
+    // Use Alt + number keys
+    if (e.altKey && !e.ctrlKey && !e.shiftKey) {
+        e.preventDefault();
+        
+        switch(e.code) {
+            case 'Digit1': safeJumpTo('welcome-section'); break;
+            case 'Digit2': safeJumpTo('instruction-section'); break;
+            case 'Digit3': safeJumpTo('practice-section'); break;
+            case 'Digit4': safeJumpTo('experiment-section'); break;
+            case 'Digit5': safeJumpTo('break-section'); break;
+            case 'Digit6': safeJumpTo('part2-instruction'); break;
+            case 'Digit7': safeJumpTo('part2-practice-section'); break;
+            case 'Digit8': safeJumpTo('part2-section'); break;
+            case 'Digit9': safeJumpTo('chinese-info-section'); break;
+            case 'Digit0': safeJumpTo('feedback-section'); break;
+        }
+    }
+});
+
+function safeJumpTo(targetSection) {
+    console.log("🚀 Jumping to:", targetSection);
+    
+    // Stop all ongoing activities
+    inExperiment = false;
+    audioPlayed = false;
+    
+    // Stop audio
+    if (audioPlayer && !audioPlayer.paused) {
+        audioPlayer.pause();
+        audioPlayer.currentTime = 0;
+    }
+    
+    // Clear countdown
+    if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+    }
+    
+    // Remove all event listeners
+    document.removeEventListener('keydown', practiceKeyHandler);
+    document.removeEventListener('keydown', experimentKeyHandler);
+    document.removeEventListener('keydown', part2PracticeKeyHandler);
+    document.removeEventListener('keydown', part2KeyHandler);
+    
+    // Initialize necessary data
+    setupDataForSection(targetSection);
+    
+    // Jump and start
+    showSection(targetSection);
+    startIfNeeded(targetSection);
+}
+
+function setupDataForSection(section) {
+    // Basic data
+    if (!participantData) {
+        participantData = { gender: 'female', nativeLanguage: 'german' };
+    }
+    
+    /// Part 1 data
+if ((section.includes('practice') || section.includes('experiment') || section === 'instruction-section')) {
+    if (!part1Words || part1Words.length === 0) {
+        part1Words = participantData.nativeLanguage === 'german' ? 
+            shuffleArray([...deWords]) : shuffleArray([...cnWords]);
+        console.log("✅ Initialized Part 1 data with", part1Words.length, "words");
+    }
+}
+   
+    // Part 2 data
+    if (section.includes('part2') && !part2WordPairs) {
+        part2WordPairs = shuffleArray([...part2WordPairsEasy]);
+        part2PracticePairs = shuffleArray([...part2PracticePairsEasy]);
+        console.log("✅ Initialized Part 2 data");
+    }
+
+    
+    // Result data
+if (section === 'feedback-section' || section === 'chinese-info-section') {
+    if (!participantCode) {
+        participantCode = generateRandomCode();
+    }
+    if (part1Results.length === 0) {
+        part1Results = [{word: "test", isCorrect: true, responseTime: 500}];
+    }
+    if (part2Results.length === 0) {
+        part2Results = [{item1: "test1", item2: "test2", isCorrect: true, responseTime: 500}];
+    }
+    console.log("✅ Initialized result data");
+}
+}
+
+function startIfNeeded(section) {
+    switch(section) {
+        case 'practice-section':
+            currentPracticeIndex = 0;
+            setTimeout(() => {
+                presentAudioStimulus(
+                    document.getElementById('practice-section'),
+                    practiceWords[currentPracticeIndex]
+                );
+                document.addEventListener('keydown', practiceKeyHandler);
+            }, 100);
+            break;
+            
+        case 'experiment-section':
+            // Reset experiment-related data
+            currentExperimentIndex = 0;
+            halbwortCorrect = 0;
+            halbwortAttempts = 0;
+            part1Results = [];
+            
+            console.log("🎯 Starting Part 1 experiment with", part1Words.length, "words");
+            
+            setTimeout(() => {
+                presentAudioStimulus(
+                    document.getElementById('experiment-section'),
+                    part1Words[currentExperimentIndex]
+                );
+                document.addEventListener('keydown', experimentKeyHandler);
+                console.log("🎵 Playing first experiment word:", part1Words[currentExperimentIndex].item);
+            }, 100);
+            break;
+            
+        case 'part2-practice-section':
+            currentPart2PracticeIndex = 0;
+            setTimeout(() => {
+                presentAudioWordPair(
+                    document.getElementById('part2-practice-section'),
+                    part2PracticePairs[currentPart2PracticeIndex]
+                );
+                document.addEventListener('keydown', part2PracticeKeyHandler);
+            }, 100);
+            break;
+            
+        case 'part2-section':
+            currentPart2Index = 0;
+            setTimeout(() => {
+                presentAudioWordPair(
+                    document.getElementById('part2-section'),
+                    part2WordPairs[currentPart2Index]
+                );
+                document.addEventListener('keydown', part2KeyHandler);
+            }, 100);
+            break;
+            
+        case 'break-section':
+            startCountdown();
+            break;
+    }
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.altKey && e.code === 'KeyH' && !e.ctrlKey && !e.shiftKey) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log(`
+🎮 Quick Navigation:
+Alt+1: Welcome page
+Alt+2: Part 1 instructions
+Alt+3: Part 1 practice
+Alt+4: Part 1 experiment
+Alt+5: Break page
+Alt+6: Part 2 instructions
+Alt+7: Part 2 practice
+Alt+8: Part 2 experiment
+Alt+9: Chinese info page
+Alt+0: Feedback page
+Alt+H: Show help
+        `);
+    }
+});
+    
+</script>
+</body>
+</html>
+    
