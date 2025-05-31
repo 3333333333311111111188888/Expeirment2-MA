@@ -148,7 +148,6 @@
             transform: translateY(0);
         }
 
-        /* Center content in the experiment sections */
         .experiment-content {
             flex: 1;
             display: flex;
@@ -160,35 +159,64 @@
             width: 100%;
         }
 
-        .welcome-columns {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            margin-bottom: 25px;
-            align-items: flex-start;
-            gap: 25px;
-        }
 
-        .welcome-info {
-            flex: 1;
-            padding-left: 20px;
-            border-left: 2px solid #e9ecef;
-        }
+.welcome-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 40px; 
+    width: 100%;
+    flex: 1;
+    margin-bottom: 30px;
+}
 
-        .welcome-info p, .welcome-text p {
-            font-size: 1em;
-            line-height: 1.5;
-            margin-bottom: 10px;
-            height: auto;
-        }
+.column-left {
+    padding-right: 20px;
+}
 
-        .welcome-text {
-            flex: 1;
-            padding-right: 25px;
-            display: flex;
-            flex-direction: column;
-            min-height: 230px;
-        }
+.column-right {
+    padding-left: 20px;
+    border-left: 1px solid #ddd; 
+}
+
+.column-left h3, .column-right h3 {
+    text-align: left;
+    margin-bottom: 15px;
+    color: var(--primary-dark);
+}
+
+.column-left p, .column-right p {
+    font-size: 1em;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+
+.column-left p {
+    margin-bottom: 30px;
+}
+
+
+.button-container {
+    grid-column: 1 / -1; 
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+@media (max-width: 768px) {
+    .welcome-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .column-right {
+        border-left: none;
+        border-top: 1px solid #ddd;
+        padding-left: 0;
+        padding-top: 20px;
+    }
+}
 
         .practice-end-container {
             background-color: #f8f9fa;
@@ -409,7 +437,6 @@
             border-left: 5px solid var(--secondary-color);
         }
 
-        /* Form styles */
         .form-container {
             max-width: 700px;
             width: 100%;
@@ -421,6 +448,9 @@
 
         .form-group {
             margin-bottom: 20px;
+        }
+        .welcome-info .form-group {
+        margin-bottom: 12px;
         }
 
         label {
@@ -458,7 +488,6 @@
             border-top: 1px dashed #dee2e6;
         }
 
-        /* Styling for word pairs */
         .word-pair {
             display: flex;
             justify-content: center;
@@ -473,7 +502,6 @@
             padding: 25px;
         }
 
-        /* List styling for instructions */
         .instruction-text ul {
             text-align: left;
             display: inline-block;
@@ -502,7 +530,6 @@
             color: var(--secondary-color);
         }
 
-        /* Language section */
         .language-section {
             margin-bottom: 25px;
             padding: 20px;
@@ -516,7 +543,6 @@
             text-align: left;
         }
 
-        /* Rating scale */
         .rating-scale {
             padding: 15px;
             margin: 15px 0;
@@ -652,17 +678,6 @@
             margin-top: 20px;
             font-style: italic;
         }
-
-        /* Uncertainty note */
-        .uncertainty-note {
-            font-weight: bold;
-            text-align: justify;
-            margin: 15px 0;
-            padding: 12px 15px;
-            background-color: #f9f9f9;
-            border-radius: var(--border-radius);
-        }
-
 
         .emphasis-text {
             font-weight: bold;
@@ -812,7 +827,7 @@
             width: 100%;
         }
 
-        /* Alert box for volume warnings */
+
         .volume-alert {
             position: fixed;
             top: 50%;
@@ -925,17 +940,22 @@ label.question-label {
 }
 
 .form-question-group {
-    margin-bottom: 25px;
-    margin-top: 40px;
+    text-align: left;
+    margin-bottom: 40px;
+    margin-top: 50px;
+}
+
+.form-container > p {
+    text-align: left;
 }
 
 label.checkbox-label {
     font-weight: normal;
-    margin-bottom: 12px; 
+    margin-bottom: 6px; 
     display: flex;
     align-items: center;
     cursor: pointer;
-    padding: 8px 0; 
+    padding: 4px 0; 
 }
 
 label.checkbox-label input[type="checkbox"] {
@@ -1141,24 +1161,25 @@ textarea:focus {
         <p><strong>Bitte Sound checken:</strong> Kopfhörer aufsetzen und Ton aktivieren.</p>
         <button id="volume-ok-btn">Weiter</button>
     </div>
+
+
     <div class="container">
         <div id="welcome-section">
             <div class="experiment-content">
                 <h1>Willkommen</h1>
-
-                <div class="welcome-columns">
-                    <div class="welcome-text">
+                <div class="welcome-grid">
+    
+                    <div class="column-left">
                         <h3>Über das Experiment</h3>
-                        <p class="instruction-text">Vielen Dank für Ihre Teilnahme an diesem Experiment.</p>
-
-                        <p class="instruction-text">Das Experiment besteht aus zwei Teilen und dauert insgesamt höchstens 20 Minuten.</p>
-
-                        <p class="instruction-text">Bitte lesen Sie die Anweisungen sorgfältig und halten Sie sich genau daran.</p>
+                        <p>Vielen Dank für Ihre Teilnahme an diesem Experiment.</p>
+                        <p>Das Experiment besteht aus zwei Teilen und dauert insgesamt höchstens 20 Minuten.</p>
+                        <p>Bitte lesen Sie die Anweisungen sorgfältig und halten Sie sich genau daran.</p>    
+                        <p>Ihre Teilnahme ist <strong>freiwillig</strong> und alle Daten werden <strong>vertraulich</strong> behandelt.</p>
                     </div>
-
-                    <div class="welcome-info">
+                
+        
+                    <div class="column-right">
                         <h3>Vor dem Start</h3>
-                        <p class="instruction-text">Bitte geben Sie zunächst einige Informationen an. Diese Angaben werden streng vertraulich behandelt und dienen ausschließlich wissenschaftlichen Zwecken.</p>
                     
                         <div class="form-group">
                             <label for="gender" class="required">Geschlecht</label>
@@ -1179,30 +1200,45 @@ textarea:focus {
                                 <option value="chinese">Chinesisch</option>
                             </select>
                         </div>
+                    
+                        <div class="form-group">
+                            <label for="age-range" class="required">Altersgruppe</label>
+                            <select id="age-range" name="age-range" required>
+                                <option value="">Bitte auswählen</option>
+                                <option value="18-25">18-25 Jahre</option>
+                                <option value="26-35">26-35 Jahre</option>
+                                <option value="36-45">36-45 Jahre</option>
+                                <option value="46-60">46-60 Jahre</option>
+                                <option value="60+">Über 60 Jahre</option>
+                            </select>
+                        </div>
+                    </div>
+                
+        
+                    <div class="button-container">
+                        <button id="startBtn">Experiment starten</button>
                     </div>
                 </div>
+            </div> 
+        </div>  
 
-                <button id="startBtn">Experiment starten</button>
-            </div>
-        </div>
 
         <div id="instruction-section" class="hidden lexical-task">
             <div class="experiment-content">
                 <h2>Anleitung für Teil 1</h2>
                 <div class="instruction-text">
-                    <p>IIm ersten Teil des Experiments hören Sie jeweils eine Audiodatei einzeln.</p>
-    
-                    <p><strong>Ihre Aufgabe ist es, zu entscheiden, ob es sich um ein echtes deutsches Wort handelt oder nicht:</strong></p>
-    
+                    <p>Im ersten Teil des Experiments hören Sie jeweils eine Audiodatei – und zwar nur einmal.</p>
+
+                    <p><strong>Ihre Aufgabe: Entscheiden Sie, ob das Gehörte ein echtes deutsches Wort ist.</strong></p>
+        
                     <p>Für ein echtes deutsches Wort → Drücken Sie <span class="keyboard-key">Q</span></p>
-    
                     <p>Für kein echtes deutsches Wort → Drücken Sie <span class="keyboard-key">P</span></p>
-    
-                    <p class="uncertainty-note">Wenn Sie sich unsicher sind oder ein Wort nicht kennen, wählen Sie bitte "Nein" (P).</p>
-    
-                    <p><strong>Antworten Sie bitte so schnell wie möglich, nachdem Sie das Wort gehört haben.</strong></p>
-    
-                    <p>Zunächst beginnen wir mit einer kurzen Übungsrunde, damit Sie sich mit dem Ablauf vertraut machen können.</p>
+                    <p>(Unsicher oder Wort nicht bekannt? → Drücken Sie <span class="keyboard-key">P</span>)</p>
+        
+        
+                    <p><strong>Bitte antworten Sie so schnell wie möglich, nachdem Sie die Audiodatei gehört haben. Vertrauen Sie auf Ihre erste Intuition.</strong></p>
+        
+                    <p>Wir beginnen mit einer kurzen Übungsrunde, damit Sie sich mit dem Ablauf vertraut machen können.</p>
                 </div>
                 <button id="instructionNextBtn">Übung starten</button>
             </div>
@@ -1275,32 +1311,32 @@ textarea:focus {
         <div id="part2-instruction" class="hidden semantic-task compact-layout">
             <div class="experiment-content">
                 <h2>Anleitung für Teil 2</h2>
-    
                 <div class="instruction-text">
-                    <p>Im zweiten Teil <strong>hören</strong> Sie zunächst ein Item als Audiodatei und <strong>sehen</strong> anschließend ein zweites Item auf dem Bildschirm.</p> 
-                    <p><strong>Ihre Aufgabe besteht darin, zu entscheiden, ob die beiden Items semantisch miteinander verwandt sind.</strong></p>
-    
+                    <p>Im zweiten Teil <strong>hören</strong> Sie zunächst eine Audiodatei. Anschließend <strong>sehen</strong> Sie ein zweites Element auf der rechten Seite des Bildschirms.</p> 
+                
+                    <p><strong>Ihre Aufgabe: Entscheiden Sie, ob das Gehörte und das Gelesene semantisch miteinander verwandt sind.</strong></p>
+                
                     <div class="semantic-instruction">
                         <h3>Was bedeutet "semantisch verwandt"?</h3>
-                        <p>Wörter sind semantisch verwandt, wenn sie:</p>
+                        <p>Wörter gelten als semantisch verwandt, wenn Sie sofort einen Zusammenhang erkennen. Zum Beispiel, wenn sie:</p>
                         <ul>
-                            <li>eine ähnliche Bedeutung haben (zum Beispiel Synonyme wie „groß" und „riesig")</li>
-                            <li>gegensätzlich sind (zum Beispiel „heiß" und „kalt")</li>
-                            <li>Teil desselben semantischen Feldes sind (zum Beispiel „Bier" und „trinken", „Buch" und „lesen" oder „Apfel" und „Banane", da sie beide Obstsorten bezeichnen)</li>
+                            <li>eine ähnliche Bedeutung haben (z.&nbsp;B. Synonyme wie „groß“ und „riesig“)</li>
+                            <li>gegensätzlich sind (z.&nbsp;B. „heiß“ und „kalt“)</li>
+                            <li>zum selben Bedeutungsfeld gehören (z.&nbsp;B. „Bier“ und „trinken“, „Buch“ und „lesen“ oder „Apfel“ und „Banane“)</li>
                         </ul>
                     </div>
-    
+                
                     <div class="key-instruction">
-                        <p>Für "Ja" (semantisch verwandt) → Drücken Sie <span class="keyboard-key">Q</span></p>
-                        <p>Für "Nein" (nicht semantisch verwandt) → Drücken Sie <span class="keyboard-key">P</span></p>
+                        <p>Für semantisch verwandt → Drücken Sie <span class="keyboard-key">Q</span></p>
+                        <p>Für nicht semantisch verwandt → Drücken Sie <span class="keyboard-key">P</span></p>
+                        <p>(Unsicher oder Wort nicht bekannt? → Drücken Sie <span class="keyboard-key">P</span>)</p>
                     </div>
-        
-                    <p class="uncertainty-note">Wenn Sie sich unsicher sind oder ein Wort nicht kennen, wählen Sie bitte "Nein" (P).</p>
-        
-                    <p><strong>Antworten Sie bitte so schnell wie möglich, nachdem Sie das zweite Wort gelesen haben.</strong></p>
-        
-                    <p>Auch hier beginnen wir zunächst mit einer kurzen Übungsrunde.</p>
+                        
+                    <p><strong>Antworten Sie bitte so schnell wie möglich, nachdem Sie das zweite Element gelesen haben. Vertrauen Sie auf Ihre erste Intuition.</strong></p>
+                
+                    <p>Auch hier beginnen wir mit einer kurzen Übungsrunde.</p>
                 </div>
+                
         
                 <button id="part2InstructionNextBtn">Übung starten</button>
             </div>
@@ -1395,7 +1431,7 @@ textarea:focus {
         <div class="experiment-content">
             <h2>Deutschkenntnisse - Fragebogen</h2>
             <div class="form-container">
-                <p class="emphasis-text"><strong>Da Sie Chinesisch als Muttersprache angegeben haben, benötigen wir einige zusätzliche Informationen zu Ihren Deutschkenntnissen.</strong></p>
+                <p class="emphasis-text"><strong>Bevor es weitergeht, hätten wir gern noch einige Informationen zu Ihren Deutschkenntnissen.</strong></p>
     
                 <div class="form-group">
                     <label for="learning-years" class="required">Wie lange lernen Sie Deutsch? (in Jahren)</label>
@@ -1460,70 +1496,84 @@ textarea:focus {
 
 
     <div id="feedback-section" class="hidden">
-                    <div class="experiment-content">
-                        <h2>Feedback zum Experiment</h2>
-                        <div class="form-container">
-                            <p class="emphasis-text">
-                                <strong>Abschließend möchten wir gerne Ihr Feedback zum Experiment erfahren.</strong>
-                            </p>
-                
-                
-                                <div class="form-question-group">
-                                    <span class="question-number">1.</span><label class="question-label required">Wie waren die Audioaufnahmen für Sie? (multiple)</label>
-                                <div class="checkbox-options">
-                                    <label class="checkbox-label"><input type="checkbox" name="audio-issues" value="zu-schnell"> Zu schnell (z. B. ich konnte mich noch nicht fokussieren, bevor das Item abgespielt wurde.)</label>
-                                    <label class="checkbox-label"><input type="checkbox" name="audio-issues" value="zu-langsam"> Zu langsam (z. B. die Pausen zwischen den Wörtern waren zu lang.)</label>
-                                    <label class="checkbox-label"><input type="checkbox" name="audio-issues" value="nicht-klar"> Nicht klar verständlich (z. B. Rauschen, Knacklaute oder undeutliche Aussprache)</label>
-                                    <label class="checkbox-label"><input type="checkbox" name="audio-issues" value="lautstaerke"> Lautstärke-Probleme (z. B. zu leise oder ungleichmäßig laut)</label>
-                                    <label class="checkbox-label"><input type="checkbox" name="audio-issues" value="keine-probleme"> Keine Probleme (Audio war gut verständlich und angemessen getimed.)</label>
-                                </div>
-                            </div>
-                
-
-                            <div class="form-question-group">
-                                <span class="question-number">2.</span><label for="task-clarity" class="question-label required">Wie verständlich waren die Anweisungen für Sie?</label>
-                                <select id="task-clarity" name="task-clarity" required>
-                                    <option value="">Bitte auswählen</option>
-                                    <option value="teil1-unklar">Bei Teil 1 (Lexical Decision) war ich unsicher, was ich tun sollte.</option>
-                                    <option value="teil2-unklar">Bei Teil 2 (Semantic Relatedness Judgement) war ich unsicher, was ich tun sollte.</option>
-                                    <option value="beide-unklar">Bei beiden Teilen war ich unsicher.</option>
-                                    <option value="beide-klar">Ich wusste immer, was zu tun ist.</option>
-                                </select>
-                            </div>
-                
-          
-                                <div class="form-question-group">
-                                    <span class="question-number">3.</span><label for="experiment-duration" class="question-label required">Wie ging es Ihnen mit der Dauer des Experiments?</label>
-                                <select id="experiment-duration" name="experiment-duration" required>
-                                    <option value="">Bitte auswählen</option>
-                                    <option value="angemessen">Die Dauer war genau richtig.</option>
-                                    <option value="etwas-zu-lang">Ich wurde etwas ungeduldig.</option>
-                                    <option value="zu-lang">Ich wollte schon früher aufhören.</option>
-                                </select>
-                            </div>
-                
-
-                                <div class="form-question-group">
-                                    <span class="question-number">4.</span><label for="additional-comments" class="question-label">Weitere Anmerkungen oder Fragen (optional):</label>
-                                <textarea id="additional-comments" name="additional-comments" rows="4"
-                                          placeholder="Sie können hier gerne auch in Ihrer Muttersprache schreiben (z. B. Chinesisch)."></textarea>
-                            </div>
-                
-                       
-                            <div id="data-warning-modal" class="data-warning-modal hidden">
-                                <div class="data-warning-content">
-                                    <h3>Wichtig!</h3>
-                                    <p>Bitte am Ende auf <strong>"Daten absenden"</strong> klicken - sonst gehen Ihre Daten <strong>verloren</strong>.</p>
-                                    <button id="data-warning-ok-btn">Weiter</button>
-                                </div>
-                            </div>
-                
-                            <!-- Status und Absenden -->
-                            <div id="submit-status" class="submit-status hidden"></div>
-                            <button id="feedbackSubmitBtn">Daten absenden und Experiment beenden</button>
-                        </div>
+        <div class="experiment-content">
+            <h2>Feedback zum Experiment</h2>
+            <div class="form-container">
+                <p class="emphasis-text">
+                    <strong>Abschließend möchten wir gerne Ihr Feedback zum Experiment erhalten.</strong>
+                </p>
+    
+                <div class="form-question-group">
+                    <span class="question-number">1.</span>
+                    <label class="question-label required">
+                        Wie empfanden Sie die Präsentation der beiden Elemente im <strong>zweiten Teil</strong>? (Mehrfachantworten möglich)
+                    </label>
+                    <div class="checkbox-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="audio-issues" value="zu-schnell">
+                            Die beiden Elemente, Audioaufnahme und das geschriebene Element, kamen zu schnell hintereinander.
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="audio-issues" value="zu-langsam">
+                            Es gab zu lange Pausen zwischen den beiden Elementen.
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="audio-issues" value="nicht-klar">
+                            Die Audioqualität war nicht klar (z. B. Rauschen, Knacklaute oder undeutliche Aussprache, unterschiedliche Stimmen).
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="audio-issues" value="keine-probleme">
+                            Alles war klar. Ich hatte keine Probleme mit dem Hören.
+                        </label>
                     </div>
                 </div>
+                
+    
+                <div class="form-question-group">
+                    <span class="question-number">2.</span>
+                    <label for="task-clarity" class="question-label required">Wie verständlich waren die Anweisungen für Sie?</label>
+                    <select id="task-clarity" name="task-clarity" required>
+                        <option value="">Bitte auswählen</option>
+                        <option value="teil1-unklar">In Teil 1 (Wort-/Nonwort-Test) war mir nicht ganz klar, was ich tun soll.</option>
+                        <option value="teil2-unklar">In Teil 2 (Bedeutungsvergleich) war mir nicht ganz klar, was ich tun soll.</option>
+                        <option value="beide-unklar">In beiden Teilen war mir nicht ganz klar, was ich tun soll.</option>
+                        <option value="beide-klar">Ich wusste bei beiden Teilen immer, was zu tun ist.</option>
+                    </select>
+                </div>
+    
+                <div class="form-question-group">
+                    <span class="question-number">3.</span>
+                    <label for="experiment-duration" class="question-label required">Wie empfanden Sie die Dauer des Experiments?</label>
+                    <select id="experiment-duration" name="experiment-duration" required>
+                        <option value="">Bitte auswählen</option>
+                        <option value="angemessen">Die Dauer war genau richtig.</option>
+                        <option value="etwas-zu-lang">Es war etwas zu lang, aber noch in Ordnung.</option>
+                        <option value="zu-lang">Ich hätte gerne wirklich früher aufgehört.</option>
+                    </select>
+                </div>
+    
+                <div class="form-question-group">
+                    <span class="question-number">4.</span>
+                    <label for="additional-comments" class="question-label">Weitere Anmerkungen oder Fragen (optional):</label>
+                    <textarea id="additional-comments" name="additional-comments" rows="4"
+                              placeholder="Sie können hier gerne auch in Ihrer Muttersprache schreiben (z. B. Chinesisch)."></textarea>
+                </div>
+    
+                <div id="data-warning-modal" class="data-warning-modal hidden">
+                    <div class="data-warning-content">
+                        <h3>Wichtig!</h3>
+                        <p>Bitte am Ende auf <strong>"Daten absenden"</strong> klicken – sonst gehen Ihre Daten <strong>verloren</strong>.</p>
+                        <button id="data-warning-ok-btn">Weiter</button>
+                    </div>
+                </div>
+    
+                <!-- Status und Absenden -->
+                <div id="submit-status" class="submit-status hidden"></div>
+                <button id="feedbackSubmitBtn">Daten absenden und Experiment beenden</button>
+            </div>
+        </div>
+    </div>
+    
     
     <div id="thank-you-section" class="hidden">
         <div class="experiment-content">
@@ -1846,7 +1896,7 @@ let part2WordPairsHard = [
     { liste: "hard", item1: "Nacht", audioPath1: "https://files.catbox.moe/7ms07v.mp3", item2: "Kupfer", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
     { liste: "hard", item1: "Nord", audioPath1: "https://files.catbox.moe/0trabq.mp3", item2: "Unglück", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[ɔː] & [ɔ]", kontrast: "kurz - lang" },
     { liste: "hard", item1: "offen", audioPath1: "https://files.catbox.moe/vswpya.mp3", item2: "Grill", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[ɔː] & [ɔ]", kontrast: "kurz - lang" },
-    { liste: "hard", item1: "Pflaster", audioPath1: "https://files.catbox.moe/oevxx0.mp3", item2: "Wundauflage", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
+    { liste: "hard", item1: "Antwort", audioPath1: "https://files.catbox.moe/9k24ly.mp3", item2: "Reaktion", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
     { liste: "hard", item1: "Pinsel", audioPath1: "https://files.catbox.moe/bz9bye.mp3", item2: "Bürste", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
     { liste: "hard", item1: "Pollen", audioPath1: "https://files.catbox.moe/ixf5d3.mp3", item2: "Warschau", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[ɔː] & [ɔ]", kontrast: "kurz - lang" },
     { liste: "hard", item1: "Ratte", audioPath1: "https://files.catbox.moe/ssnkv9.mp3", item2: "Anteil", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[aː] & [a]", kontrast: "kurz - lang" },
@@ -2183,13 +2233,11 @@ function hideDataWarningModal() {
     }
 
     function playAudio(audioPath, callback) {
-        // Check audio volume
         if (!checkAudioVolumeContinuous()) {
             console.warn("Volume check failed, waiting for user confirmation");
             const volumeOkBtn = document.getElementById('volume-ok-btn');
             const originalCallback = callback;
             
-            // Wait for user to acknowledge volume alert before continuing
             volumeOkBtn.onclick = function() {
                 hideVolumeAlert();
                 // Retry playing audio after user confirmation
@@ -2230,7 +2278,7 @@ function hideDataWarningModal() {
         audioPlayer.onerror = function(e) {
             console.error("Audio playback error:", e);
             clearTimeout(timeoutId);
-            alert(`Audio file loading error: ${audioPath}\nBitte versuchen Sie, die Seite zu aktualisieren oder kontaktieren Sie den Versuchsleiter.`);
+            alert(`Audio file loading error: ${audioPath}\nKlicken Sie irgendwo auf die Seite, dann funktioniert alles wieder.`);
             if (callback) callback(); // Call callback even if there's an error, to prevent experiment from getting stuck
         };
         
@@ -2243,7 +2291,7 @@ function hideDataWarningModal() {
             .catch(error => {
                 console.error("Audio playback error:", error);
                 clearTimeout(timeoutId);
-                alert(`Audio file playback error: ${audioPath}\nDies könnte durch Browser-Richtlinien verursacht werden. Bitte klicken Sie irgendwo auf die Seite und versuchen Sie es erneut.`);
+                alert(`Audio file playback error: ${audioPath}\nKlicken Sie irgendwo auf die Seite, dann funktioniert alles wieder.`);
                 if (callback) callback(); // Call callback even if there's an error, to prevent experiment from getting stuck
             });
     }
@@ -2291,20 +2339,17 @@ function hideDataWarningModal() {
     preloadAudio(item.audioPath)
         .catch(error => console.log("Preloading failed, will load during playback"))
         .finally(() => {
+        prompt.classList.remove('hidden');
+        inExperiment = true;
+        audioPlayed = true;
+        stimulusStartTime = performance.now();
+
             playAudio(item.audioPath, function() {
-                // Audio playback complete
-                
-                // Show completed wave
+
                 if (soundWave) {
                     soundWave.classList.add('completed');
                 }
-                
-                prompt.classList.remove('hidden');
-                inExperiment = true;
-                audioPlayed = true;
-                stimulusStartTime = performance.now();
-                
-                // Preload next audio
+
                 preloadNextAudio();
             });
         });
@@ -2375,7 +2420,7 @@ function presentAudioWordPair(element, wordPair) {
                         console.log("Second word set:", wordPair.item2);
                     } else {
                         console.error("Error: Visual word element not found:", visualWordId);
-                        alert("Fehler: Visuelles Wortelement nicht gefunden. Bitte informieren Sie den Versuchsleiter.");
+                        alert("Klicken Sie irgendwo auf die Seite, dann funktioniert alles wieder.");
                     }
                     
                     // Show prompt, start timing
@@ -2529,12 +2574,12 @@ function presentAudioWordPair(element, wordPair) {
     console.log(`Halbwort judgment accuracy: ${accuracy.toFixed(4)} (${(accuracy * 100).toFixed(2)}%)`);
     console.log(`Halbwort average reaction time: ${avgReactionTime.toFixed(2)} ms`);
     
-    if (accuracy >= 0.2647 && avgReactionTime <= 552.25) {
-        console.log("Choosing hard difficulty - meets both accuracy and RT criteria");
+    if (accuracy >= 0.6) {
+        console.log("Choosing hard difficulty - meets accuracy criteria (≥60%)");
         part2WordPairs = shuffleArray([...part2WordPairsHard]);
         part2PracticePairs = shuffleArray([...part2PracticePairsHard]);
     } else {
-        console.log(`Choosing easy difficulty - accuracy: ${(accuracy * 100).toFixed(2)}%, RT: ${avgReactionTime.toFixed(2)}ms`);
+        console.log(`Choosing easy difficulty - accuracy: ${(accuracy * 100).toFixed(2)}% (below 60% threshold)`);
         part2WordPairs = shuffleArray([...part2WordPairsEasy]);
         part2PracticePairs = shuffleArray([...part2PracticePairsEasy]);
     }
@@ -2879,7 +2924,7 @@ function validateFeedback() {
                     statusElement.textContent = "Fehler beim Senden der Daten. Bitte versuchen Sie es erneut.";
                 }
                 
-                alert("Fehler beim Senden der Daten. Bitte versuchen Sie es erneut.");
+                alert("Senden fehlgeschlagen. Bitte senden Sie die heruntergeladene Datei an den Versuchsleiter.");
             });
     }
 
@@ -3174,27 +3219,38 @@ function validateFeedback() {
             }
         });
 
-        document.getElementById('startBtn').addEventListener('click', () => {
-            if (validateBasicInfo()) {
-                participantData = {
-                    gender: document.getElementById('gender').value,
-                    nativeLanguage: document.getElementById('native-language').value
-                };
+        document.getElementById('startBtn').addEventListener('click', async () => {
+    if (validateBasicInfo()) {
+        participantData = {
+            gender: document.getElementById('gender').value,
+            nativeLanguage: document.getElementById('native-language').value
+        };
 
-                // Important: Set part1Words based on native language
-                if (participantData.nativeLanguage === 'german') {
-                    part1Words = shuffleArray([...deWords]);
-                } else if (participantData.nativeLanguage === 'chinese') {
-                    part1Words = shuffleArray([...cnWords]);
-                }
+        // Important: Set part1Words based on native language
+        if (participantData.nativeLanguage === 'german') {
+            part1Words = shuffleArray([...deWords]);
+        } else if (participantData.nativeLanguage === 'chinese') {
+            part1Words = shuffleArray([...cnWords]);
+        }
 
-                showSection('instruction-section');
-            }
-        });
+        const startBtn = document.getElementById('startBtn');
+        startBtn.textContent = 'Audio wird geladen... 0%';
+        startBtn.disabled = true;
+        
+        await preloadAllAudio(startBtn);
+        
+        showSection('instruction-section');
+    }
+});
 
         document.getElementById('instructionNextBtn').addEventListener('click', () => {
-            startPractice();
-        });
+    try { 
+        const audio = new Audio();
+        audio.play().catch(() => {}); 
+    } catch(e) { }
+    
+    startPractice();
+});
 
         document.getElementById('startMainBtn').addEventListener('click', () => {
             startExperiment();
@@ -3274,197 +3330,57 @@ function validateFeedback() {
                 audioPlayer.currentTime = 0;
             }
         });
+    }); 
         
- 
-        document.addEventListener('keydown', function(e) {
-            if (e.code === 'KeyD' && e.ctrlKey && e.shiftKey) {
-                console.log("=== Current Experiment State ===");
-                console.log("Current section:", currentSection);
-                console.log("Part 1 progress:", currentExperimentIndex, "/", part1Words.length);
-                console.log("Part 2 progress:", currentPart2Index, "/", part2WordPairs ? part2WordPairs.length : 0);
-                console.log("Experiment state:", inExperiment ? "active" : "inactive");
-                console.log("Audio played:", audioPlayed);
-                console.log("Halbwort accuracy:", halbwortAttempts > 0 ? (halbwortCorrect / halbwortAttempts).toFixed(2) : "no data");
-                console.log("Part 1 results count:", part1Results.length);
-                console.log("Part 2 results count:", part2Results.length);
-            }
-        });
-    });
-
-// === Simple keyboard navigation system ===
-document.addEventListener('keydown', function(e) {
-    // Use Alt + number keys
-    if (e.altKey && !e.ctrlKey && !e.shiftKey) {
-        e.preventDefault();
-        
-        switch(e.code) {
-            case 'Digit1': safeJumpTo('welcome-section'); break;
-            case 'Digit2': safeJumpTo('instruction-section'); break;
-            case 'Digit3': safeJumpTo('practice-section'); break;
-            case 'Digit4': safeJumpTo('experiment-section'); break;
-            case 'Digit5': safeJumpTo('break-section'); break;
-            case 'Digit6': safeJumpTo('part2-instruction'); break;
-            case 'Digit7': safeJumpTo('part2-practice-section'); break;
-            case 'Digit8': safeJumpTo('part2-section'); break;
-            case 'Digit9': safeJumpTo('chinese-info-section'); break;
-            case 'Digit0': safeJumpTo('feedback-section'); break;
-        }
-    }
-});
-
-function safeJumpTo(targetSection) {
-    console.log("🚀 Jumping to:", targetSection);
-    
-    // Stop all ongoing activities
-    inExperiment = false;
-    audioPlayed = false;
-    
-    // Stop audio
-    if (audioPlayer && !audioPlayer.paused) {
-        audioPlayer.pause();
-        audioPlayer.currentTime = 0;
-    }
-    
-    // Clear countdown
-    if (countdownInterval) {
-        clearInterval(countdownInterval);
-        countdownInterval = null;
-    }
-    
-    // Remove all event listeners
-    document.removeEventListener('keydown', practiceKeyHandler);
-    document.removeEventListener('keydown', experimentKeyHandler);
-    document.removeEventListener('keydown', part2PracticeKeyHandler);
-    document.removeEventListener('keydown', part2KeyHandler);
-    
-    // Initialize necessary data
-    setupDataForSection(targetSection);
-    
-    // Jump and start
-    showSection(targetSection);
-    startIfNeeded(targetSection);
-}
-
-function setupDataForSection(section) {
-    // Basic data
-    if (!participantData) {
-        participantData = { gender: 'female', nativeLanguage: 'german' };
-    }
-    
-    /// Part 1 data
-if ((section.includes('practice') || section.includes('experiment') || section === 'instruction-section')) {
-    if (!part1Words || part1Words.length === 0) {
-        part1Words = participantData.nativeLanguage === 'german' ? 
-            shuffleArray([...deWords]) : shuffleArray([...cnWords]);
-        console.log("✅ Initialized Part 1 data with", part1Words.length, "words");
-    }
-}
+ // Alle Audiodateien vorladen
+async function preloadAllAudio(progressButton) {
+   const allAudioPaths = [];
    
-    // Part 2 data
-    if (section.includes('part2') && !part2WordPairs) {
-        part2WordPairs = shuffleArray([...part2WordPairsEasy]);
-        part2PracticePairs = shuffleArray([...part2PracticePairsEasy]);
-        console.log("✅ Initialized Part 2 data");
-    }
-
-    
-    // Result data
-if (section === 'feedback-section' || section === 'chinese-info-section') {
-    if (!participantCode) {
-        participantCode = generateRandomCode();
-    }
-    if (part1Results.length === 0) {
-        part1Results = [{word: "test", isCorrect: true, responseTime: 500}];
-    }
-    if (part2Results.length === 0) {
-        part2Results = [{item1: "test1", item2: "test2", isCorrect: true, responseTime: 500}];
-    }
-    console.log("✅ Initialized result data");
-}
-}
-
-function startIfNeeded(section) {
-    switch(section) {
-        case 'practice-section':
-            currentPracticeIndex = 0;
-            setTimeout(() => {
-                presentAudioStimulus(
-                    document.getElementById('practice-section'),
-                    practiceWords[currentPracticeIndex]
-                );
-                document.addEventListener('keydown', practiceKeyHandler);
-            }, 100);
-            break;
-            
-        case 'experiment-section':
-            // Reset experiment-related data
-            currentExperimentIndex = 0;
-            halbwortCorrect = 0;
-            halbwortAttempts = 0;
-            part1Results = [];
-            
-            console.log("🎯 Starting Part 1 experiment with", part1Words.length, "words");
-            
-            setTimeout(() => {
-                presentAudioStimulus(
-                    document.getElementById('experiment-section'),
-                    part1Words[currentExperimentIndex]
-                );
-                document.addEventListener('keydown', experimentKeyHandler);
-                console.log("🎵 Playing first experiment word:", part1Words[currentExperimentIndex].item);
-            }, 100);
-            break;
-            
-        case 'part2-practice-section':
-            currentPart2PracticeIndex = 0;
-            setTimeout(() => {
-                presentAudioWordPair(
-                    document.getElementById('part2-practice-section'),
-                    part2PracticePairs[currentPart2PracticeIndex]
-                );
-                document.addEventListener('keydown', part2PracticeKeyHandler);
-            }, 100);
-            break;
-            
-        case 'part2-section':
-            currentPart2Index = 0;
-            setTimeout(() => {
-                presentAudioWordPair(
-                    document.getElementById('part2-section'),
-                    part2WordPairs[currentPart2Index]
-                );
-                document.addEventListener('keydown', part2KeyHandler);
-            }, 100);
-            break;
-            
-        case 'break-section':
-            startCountdown();
-            break;
-    }
+   // Alle Audiopfade sammeln
+   practiceWords.forEach(word => allAudioPaths.push(word.audioPath));
+   part1Words.forEach(word => allAudioPaths.push(word.audioPath));
+   part2WordPairsEasy.forEach(pair => allAudioPaths.push(pair.audioPath1));
+   part2WordPairsHard.forEach(pair => allAudioPaths.push(pair.audioPath1));
+   part2PracticePairsEasy.forEach(pair => allAudioPaths.push(pair.audioPath1));
+   part2PracticePairsHard.forEach(pair => allAudioPaths.push(pair.audioPath1));
+   
+   console.log(`Beginne Vorladen von ${allAudioPaths.length} Audiodateien...`);
+   
+   let loadedCount = 0;
+   const updateProgress = () => {
+       loadedCount++;
+       const percentage = Math.round((loadedCount / allAudioPaths.length) * 100);
+       progressButton.textContent = `Audio wird geladen... ${percentage}%`;
+   };
+   
+   // Paralleles Vorladen aller Audiodateien
+   const preloadPromises = allAudioPaths.map(path => preloadSingleAudio(path, updateProgress));
+   
+   await Promise.all(preloadPromises);
+   progressButton.textContent = 'Laden abgeschlossen!';
+   console.log('Alle Audiodateien erfolgreich vorgeladen');
 }
 
-document.addEventListener('keydown', function(e) {
-    if (e.altKey && e.code === 'KeyH' && !e.ctrlKey && !e.shiftKey) {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log(`
-🎮 Quick Navigation:
-Alt+1: Welcome page
-Alt+2: Part 1 instructions
-Alt+3: Part 1 practice
-Alt+4: Part 1 experiment
-Alt+5: Break page
-Alt+6: Part 2 instructions
-Alt+7: Part 2 practice
-Alt+8: Part 2 experiment
-Alt+9: Chinese info page
-Alt+0: Feedback page
-Alt+H: Show help
-        `);
-    }
-});
-    
+// Einzelne Audiodatei vorladen
+function preloadSingleAudio(audioPath, onComplete) {
+   return new Promise((resolve) => {
+       const audio = new Audio();
+       audio.preload = 'auto';
+       
+       const finish = () => {
+           onComplete();
+           resolve();
+       };
+       
+       audio.oncanplaythrough = finish;
+       audio.onerror = finish;
+       audio.src = audioPath;
+       
+       // 5 Sekunden Timeout
+       setTimeout(finish, 5000);
+   });
+}
+  
 </script>
 </body>
 </html>
-    
