@@ -1164,7 +1164,37 @@ textarea:focus {
 
 
     <div class="container">
-        <div id="welcome-section">
+        <div id="browser-check-section">
+            <div style="min-height: 70vh; position: relative; padding: 35px; display: flex; flex-direction: column;">
+                <div style="background: linear-gradient(135deg, #4a6fa5 0%, #6b8cbe 100%); width: 100%; max-width: 600px; padding: 30px; border-radius: 10px; position: relative; overflow: hidden; margin-bottom: 30px; text-align: center; color: white; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);">
+                    <div style="position: relative; z-index: 2;">
+                        <div style="font-size: 60px; margin-bottom: 15px; display: inline-block;">🌐</div>
+                        <div style="font-size: 1.3em; font-weight: 600;">Bitte in Standard-Browser öffnen</div>
+                    </div>
+                </div>
+                
+                <div style="background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); width: 100%; max-width: 600px; padding: 14px; text-align: center;">
+                    <div style="margin: 30px 0; font-size: 0.95em; line-height: 1.5; text-align: justify;">
+                            <p style="margin-bottom: 20px;"><strong>1.</strong> Benutzen Sie <strong>KEINEN</strong> In-App-Browser von WeChat, WhatsApp, Messenger oder anderen Apps, denn das Experiment funktioniert möglicherweise nicht richtig.</p>
+                            <p><strong>2.</strong> Sondern kopieren Sie den Link und öffnen Sie Ihren <strong>Standard-Browser</strong> (Chrome, Firefox, Safari, Edge usw.)</p>
+                    </div>
+                    
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin: 30px 0; border: 2px dashed #6b8cbe;">
+                        <div style="display: flex; align-items: stretch; background: white; border-radius: 8px; border: 1px solid #dee2e6; overflow: hidden;">
+                            <div style="flex: 1; padding: 10px 15px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 0.95em; color: #385888; font-weight: 600; display: flex; align-items: center; justify-content: center;">https://xt.sufwz.com/</div>
+                            <button onclick="copyCurrentUrl()" style="background: transparent; color: #666; border: none; outline: none; padding: 8px 12px; cursor: pointer; font-size: 0.85em; transition: all 0.3s ease; display: flex; align-items: center;" onmouseover="this.style.color='#4a6fa5'" onmouseout="this.style.color='#666'">⧉</button>
+                        </div>
+                        <div id="copy-status" style="margin-top: 6px; font-size: 0.85em; color: #28a745; text-align: center; visibility: hidden;">Erfolgreich kopiert</div>
+                    </div>
+                    
+                    <button id="browserConfirmBtn" style="background: #4a6fa5; color: white; border: none; padding: 15px 25px; border-radius: 10px; cursor: pointer; font-size: 0.95em; font-weight: bold; margin-top: 20px; transition: all 0.3s ease;">
+                        Schon im Standard-Browser, weiter!
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="welcome-section" class="hidden">
             <div class="experiment-content">
                 <h1>Willkommen</h1>
                 <div class="welcome-grid">
@@ -1227,7 +1257,7 @@ textarea:focus {
             <div class="experiment-content">
                 <h2>Anleitung für Teil 1</h2>
                 <div class="instruction-text">
-                    <p>Im ersten Teil des Experiments hören Sie jeweils eine Audiodatei – und zwar nur einmal.</p>
+                    <p>Im ersten Teil des Experiments hören Sie in jedem Durchgang eine Audiodatei.</p>
 
                     <p><strong>Ihre Aufgabe: Entscheiden Sie, ob das Gehörte ein echtes deutsches Wort ist.</strong></p>
         
@@ -1928,7 +1958,7 @@ let part2WordPairsHard = [
     { liste: "hard", item1: "Wald", audioPath1: "https://files.catbox.moe/45i268.mp3", item2: "Salz", kategorie: "Wort-Wort-unverwandt", isRelated: false, vokal: "", kontrast: "" },
     { liste: "hard", item1: "Sack", audioPath1: "https://files.catbox.moe/l51swz.mp3", item2: "erzählen", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[aː] & [a]", kontrast: "kurz - lang" },
     { liste: "hard", item1: "Wasser", audioPath1: "https://files.catbox.moe/r878b7.mp3", item2: "Flüssigkeit", kategorie: "Wort-Wort-verwandt", isRelated: true, vokal: "", kontrast: "" },
-    { liste: "hard", item1: "weck", audioPath1: "https://files.catbox.moe/5kzad0.mp3", item2: "Route", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[eː] & [ɛ]", kontrast: "kurz - lang" },
+    { liste: "hard", item1: "weck", audioPath1: "https://files.catbox.moe/qq3rty.mp3", item2: "Route", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[eː] & [ɛ]", kontrast: "kurz - lang" },
     { liste: "hard", item1: "Wellen", audioPath1: "https://files.catbox.moe/ui3mlg.mp3", item2: "Schere", kategorie: "MWort-völlig unverwandt", isRelated: false, vokal: "[eː] & [ɛ]", kontrast: "" },
     { liste: "hard", item1: "wieder", audioPath1: "https://files.catbox.moe/0la8x9.mp3", item2: "Insel", kategorie: "MWort-völlig unverwandt", isRelated: false, vokal: "[iː] & [ɪ]", kontrast: "" },
     { liste: "hard", item1: "zehren", audioPath1: "https://files.catbox.moe/cmw3ya.mp3", item2: "reißen", kategorie: "MWort-mit dem Minimalpaar verwandt", isRelated: false, vokal: "[eː] & [ɛ]", kontrast: "lang - kurz" },
@@ -2069,8 +2099,8 @@ let part2PracticePairsHard = [
         }, 500);
     }
     let progress = 0;
-    if (sectionId === 'welcome-section') progress = 0;
-    else if (sectionId === 'instruction-section') progress = 5;
+    if (sectionId === 'browser-check-section') progress = 0;
+    if (sectionId === 'welcome-section') progress = 5;
     else if (sectionId === 'practice-section') progress = 10;
     else if (sectionId === 'practice-end-section') progress = 15;
     else if (sectionId === 'experiment-section') progress = 20 + (currentExperimentIndex / (part1Words.length || 1)) * 25;
@@ -2278,7 +2308,7 @@ function hideDataWarningModal() {
         audioPlayer.onerror = function(e) {
             console.error("Audio playback error:", e);
             clearTimeout(timeoutId);
-            alert(`Audio file loading error: ${audioPath}\nKlicken Sie irgendwo auf die Seite, dann funktioniert alles wieder.`);
+            alert('Die Audiodatei kann nicht geladen werden. Einfach Fehlermeldung schließen (oder nicht mehr anzeigen lassen), um das Item zu überspringen.');
             if (callback) callback(); // Call callback even if there's an error, to prevent experiment from getting stuck
         };
         
@@ -2291,7 +2321,7 @@ function hideDataWarningModal() {
             .catch(error => {
                 console.error("Audio playback error:", error);
                 clearTimeout(timeoutId);
-                alert(`Audio file playback error: ${audioPath}\nKlicken Sie irgendwo auf die Seite, dann funktioniert alles wieder.`);
+                alert('Die Audiodatei kann nicht geladen werden. Einfach Fehlermeldung schließen (oder nicht mehr anzeigen lassen), um das Item zu überspringen.');
                 if (callback) callback(); // Call callback even if there's an error, to prevent experiment from getting stuck
             });
     }
@@ -2420,7 +2450,7 @@ function presentAudioWordPair(element, wordPair) {
                         console.log("Second word set:", wordPair.item2);
                     } else {
                         console.error("Error: Visual word element not found:", visualWordId);
-                        alert("Klicken Sie irgendwo auf die Seite, dann funktioniert alles wieder.");
+                        alert('Die Audiodatei kann nicht geladen werden. Einfach Fehlermeldung schließen (oder nicht mehr anzeigen lassen), um das Item zu überspringen.');
                     }
                     
                     // Show prompt, start timing
@@ -2596,7 +2626,7 @@ function presentAudioWordPair(element, wordPair) {
 
     if (!part2PracticePairs || part2PracticePairs.length === 0) {
         console.error("part2PracticePairs not initialized!");
-        alert("Übungsdaten wurden nicht korrekt geladen. Bitte aktualisieren Sie die Seite und versuchen Sie es erneut.");
+        alert('Die Audiodatei kann nicht geladen werden. Einfach Fehlermeldung schließen (oder nicht mehr anzeigen lassen), um das Item zu überspringen.');
         return;
     }
 
@@ -2807,36 +2837,46 @@ function presentAudioWordPair(element, wordPair) {
 
 
 
-function validateFeedback() {
-    const requiredFields = [];
-    let isValid = true;
-    
+    function validateFeedback() {
     const audioIssues = document.querySelectorAll('input[name="audio-issues"]:checked');
+    const taskClarity = document.getElementById('task-clarity');
+    const experimentDuration = document.getElementById('experiment-duration');
+    
+    let missingCount = 0;
+    if (audioIssues.length === 0) missingCount++;
+    if (!taskClarity.value) missingCount++;
+    if (!experimentDuration.value) missingCount++;
+    
+    if (missingCount > 1) {
+        alert('Bitte füllen Sie alle Pflichtfelder aus.');
+        return false;
+    }
+    
     if (audioIssues.length === 0) {
         alert('Bitte wählen Sie mindestens eine Option bei der Audioqualität aus.');
-        isValid = false;
+        return false;
     }
-
-    const taskClarity = document.getElementById('task-clarity');
+    
     if (!taskClarity.value) {
         taskClarity.style.borderColor = '#e74c3c';
         alert('Bitte bewerten Sie die Verständlichkeit der Aufgabenstellungen.');
-        isValid = false;
+        return false;
     } else {
         taskClarity.style.borderColor = '#ddd';
     }
-
-    const experimentDuration = document.getElementById('experiment-duration');
+    
     if (!experimentDuration.value) {
         experimentDuration.style.borderColor = '#e74c3c';
         alert('Bitte bewerten Sie die Gesamtdauer des Experiments.');
-        isValid = false;
+        return false;
     } else {
         experimentDuration.style.borderColor = '#ddd';
     }
     
-    return isValid;
+    return true;
 }
+
+
 
     // Modified beforeunload event handler to prevent accidental page closure
     window.addEventListener('beforeunload', function(e) {
@@ -3205,7 +3245,7 @@ function validateFeedback() {
         initializeAndRandomizeStimuli();
         setupSliders();
         updateLivedMonthsVisibility();
-        showSection('welcome-section');
+        showSection('browser-check-section');
         
 
         startVolumeMonitoring();
@@ -3218,6 +3258,10 @@ function validateFeedback() {
                 resumeExperiment();
             }
         });
+
+        document.getElementById('browserConfirmBtn').addEventListener('click', () => {
+    showSection('welcome-section');
+});
 
         document.getElementById('startBtn').addEventListener('click', async () => {
     if (validateBasicInfo()) {
@@ -3379,6 +3423,38 @@ function preloadSingleAudio(audioPath, onComplete) {
        // 5 Sekunden Timeout
        setTimeout(finish, 5000);
    });
+}
+
+function copyCurrentUrl() {
+    const url = window.location.href;
+    
+    const input = document.createElement('input');
+    input.value = url;
+    input.style.position = 'absolute';
+    input.style.left = '-9999px';
+    document.body.appendChild(input);
+    
+    input.select();
+    input.setSelectionRange(0, 99999);
+    
+    let success = false;
+    try {
+        success = document.execCommand('copy');
+    } catch (err) {
+        console.error('Kopieren fehlgeschlagen:', err);
+    }
+    
+    document.body.removeChild(input);
+    
+    const statusElement = document.getElementById('copy-status');
+    if (success && statusElement) {
+        statusElement.style.visibility = 'visible';
+        setTimeout(() => {
+            statusElement.style.visibility = 'hidden';
+        }, 2000);
+    } else if (!success) {
+        prompt('Bitte kopieren:', url);
+    }
 }
   
 </script>
